@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import {
   HashRouter as Router,
   Redirect,
+  Link,
   Route,
   Switch,
 } from 'react-router-dom';
@@ -21,6 +22,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
 import './App.css';
+import LoginForm from '../LoginForm/LoginForm';
 
 function App() {
   const dispatch = useDispatch();
@@ -103,7 +105,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/user" /> 
               :
               // Otherwise, show the Landing page
               <LandingPage />
@@ -122,3 +124,39 @@ function App() {
 }
 
 export default App;
+
+
+{/* <Router>
+<div>
+
+    <nav>
+      <Link to="/home">
+        <p>Home</p>
+      </Link>
+      <Link to="/about">
+        <p>About</p>
+      </Link>
+      <Link to="/user">
+        <p>User</p>
+      </Link>
+      <Link to="/user">
+        <p>Login</p>
+      </Link>
+    </nav>
+    <header>
+      <h1>On-Track Solo Project</h1>
+    </header>
+
+
+    
+    <Route exact path="/user">
+      <UserPage />
+    </Route>
+    <Route exact path="/about">
+      <AboutPage />
+    </Route>
+    <Route exact path="/hi">
+
+    </Route>
+</div>
+</Router> */}

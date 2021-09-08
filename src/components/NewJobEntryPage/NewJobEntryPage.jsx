@@ -45,11 +45,11 @@ function NewJobEntryPage() {
             <h1>Job Entry</h1>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label for="titleOfJobHunt" className="form-label">Title Of New Job Hunt</label>
-                    <input name="huntTitle" type="text" class="form-control" placeholder="Position Desired" onChange={handleChange} value={appDetails.huntTitle}/>
+                    <label htmlFor="titleOfJobHunt" className="form-label">Title Of New Job Hunt</label>
+                    <input name="huntTitle" type="text" className="form-control" placeholder="Position Desired" onChange={handleChange} value={appDetails.huntTitle}/>
                 </div>
                 <div className="mb-3">
-                    <label for="jobEntryFields" className="form-label">Add Position Applied</label>
+                    <label htmlFor="jobEntryFields" className="form-label">Add Position Applied</label>
                     <input name="company" type="text" className="form-control" placeholder="company" onChange={handleChange} value={appDetails.company}/>
                     <input name="applicationUrl" type="text" className="form-control" placeholder="application url" onChange={handleChange} value={appDetails.applicationUrl}/>
                     <input name="position" type="text" className="form-control" placeholder="position titile" onChange={handleChange} value={appDetails.position}/>
@@ -67,7 +67,7 @@ function NewJobEntryPage() {
                     </select>
                     <div className="form-check form-switch">
                         <input name="offer" className="form-check-input" type="checkbox" id="offerSwitch" onChange={handleChange} value={appDetails.offer}/>
-                        <label class="form-check-label" for="offerSwitch">Offer Received</label>
+                        <label className="form-check-label" htmlFor="offerSwitch">Offer Received</label>
                     </div>
                     <input name="contactName" type="text" className="form-control" placeholder="contact name" onChange={handleChange} value={appDetails.contactName}/>
                     <input name="contactEmail" type="email" className="form-control" placeholder="contact email" onChange={handleChange} value={appDetails.contactEmail}/>

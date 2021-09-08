@@ -119,3 +119,134 @@ This code is also heavily commented. We recommend reading through the comments, 
 ## Update Documentation
 
 Customize this ReadMe and the code comments in this project to read less like a starter repo and more like a project. Here is an example: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
+
+TODO LIST
+
+Setup
+
+  [] npm installs
+    [] do install
+    [] add missing necessary dependancies
+  [] read through files/understand template
+  [] update existing components names to match project
+    [] add routes/paths for new pages to nav
+  [] add more inputs to registration form
+    [] add, fist/last name, email
+    [] edit corresponding data and endpoint to match
+  [] Create saga for job details and add to root saga
+  [] Create Reducer for job details
+  [] Create job router file and add to server.js
+  [] Create Database
+    [] add necessary tables
+    [] match db name to modules/pool
+    [] update database file with new tables
+
+---------- Pages --------------
+[x] Login
+
+[x] Registration Page
+  [x] add input fields to registration page
+    [x] add first name, last name, email, bio
+
+[] Home Page
+  [] Add Profile Info
+    [] use user reducer to get info
+    [] edit profile button
+      [] history push to take you profile page
+    [] style profile info to be on left side of page with a divider
+  [] add new job hunt button
+    [] history push should to take you to NewJobEntryPage
+  [] Display Previous job hunts by title
+    [] use mapping to display each job hunt
+    [] reach out to brad about how the sql table and how it will look (hunt title)
+    [] ^ create hunt title on job details that reference hunt title table
+    [] display time stamp of when job hunt was completed
+    [] add view button 
+      [] view button will take you to details about that previous job hunt
+
+[] Profile Page
+  [] display current demographic
+  [] add input fields 
+    [] first name, last name, bio, email
+    [] username, password
+    [] change profile picture button
+      [] input from bootstrap to get image from desktop
+  [] cancel button to take you to home page
+  [] save button update info
+    [] initiate dipatch to user saga
+    [] build put function with payload to user router
+      [] once server put sends back response, will call put/dispatch to get load  data
+    [] build put endpoint to update user
+    [] save button will take you to home page where update info will 
+
+[] View previous search page
+  [] setup same as dashboard without edit or delete
+  [] job title and item loaded and map will be the clicked hunt (by id/key)
+ 
+[] New Job Entry Page
+  [] create input fields 
+    [] style them 
+  [] create local state to capture values
+  [] send local state object as payload to saga
+  [] build saga generator function (post)
+    [] set up put function that makes 
+        get saga function call
+        and rerenders data on dashboard
+  [] build post end point in router to insert data to table
+  [] add additional job button
+    [] button should have collapse functionality
+    [] button should show another set of inputs to add job
+  [] cancel button that takes you to home page
+  [] submit button 
+    [] submit will initiate dipatch function
+    [] submit should take you to dashboard page
+
+[] Dashboard Page
+  [] create table to hold all current jobs
+    [] map through data for each job item
+      [] display in table
+      [] each job item should include an edit button icon
+        [] edit button will take you edit job page and display job clicked(by id/key)
+        [] edit button will initiate a dispatch
+        [] build saga function (put)
+        [] build put endpoint that updates database
+      [] each job item should include delete button
+        [] delete button will initiate delete saga
+        [] build saga function (delete)
+          [] call get function that rerenders and refreshes dashboard
+  [] add additional job button takes you to job entry page
+  [] home button takes you to home page
+  [] progress tracker
+    [] total applied
+      [] count of job items on table
+    [] total interview
+      [] count of total job items that arent 'pending'
+    [] total rejections
+      [] count of total job items that are 'rejected
+    [] total offers
+      [] count of total 'true' booleans for offer
+    [] display in chart js
+
+[] Edit job Page
+  [] set up like inputs from job entry page 
+  [] data from job item clicked (by id/key) will be populated within inputs 
+  [] rest of setup will be like new job entry page/job entry page/ add job page
+
+[] add job page
+  [] setup like new job entry page without job title
+
+*****
+[] Congradulatory Page (Dashboard with pop up)
+  [] update offer to yes (true)
+    [] additional field will show (accepted) 
+      [] if answered yes (true)
+        [] generate pop up message
+        [] save search to home page
+  [] add pop message 
+    [] okay takes you to home page
+    [] cancel keeps you on dashboard
+
+**** most challenging
+
+
+  

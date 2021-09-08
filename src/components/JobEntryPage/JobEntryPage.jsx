@@ -27,11 +27,11 @@ function JobEntryPage() {
         event.preventDefault()
         console.log('appDetails', appDetails);
 
-        // dispatch({
-        //     type: 'ADD_JOB_DETAILS',
-        //     payload: appDetails
-        // });
-        setApplDetails(job);
+        dispatch({
+            type: 'ADD_JOB_DETAILS',
+            payload: appDetails
+        });
+        // setApplDetails(job);
     }
 
     return (

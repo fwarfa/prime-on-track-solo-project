@@ -39,11 +39,15 @@ router.post('/details', (req, res) => {
             ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id`;
     pool
         .query(queryText, [company, applicationUrl, position, appStatus, interviewStage, contactName, contactEmail, contactNumber, offer, userId])
-        .then(() => res.sendStatus(201))
+        .then((result) => {
+            console.log('id of job detail is, ', result.id);
+            
+            res.sendStatus(201)
+        })
         .catch((err) => {
         console.log('Job Entry POST failed: ', err);
         res.sendStatus(500);
-        });
+        })
 });
 
 module.exports = router;

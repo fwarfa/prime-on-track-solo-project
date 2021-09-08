@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
-function JobEntryPage() {
+function NewJobEntryPage() {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     let job = {
         huntTitle: '',
@@ -22,6 +24,10 @@ function JobEntryPage() {
     const handleChange = (event) =>{
         setApplDetails({...appDetails, [event.target.name]:event.target.value })
       };
+
+    const handleCancel = () => {
+        history.push('/home');
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -67,10 +73,11 @@ function JobEntryPage() {
                     <input name="contactEmail" type="email" className="form-control" placeholder="contact email" onChange={handleChange} value={appDetails.contactEmail}/>
                     <input name="contactNumber" type="text" className="form-control" placeholder="contact phone #" onChange={handleChange} value={appDetails.contactNumber}/>
                 </div>
+                <button onClick={handleCancel}>Cancel</button>
                 <button type="submit">Submit</button>
             </form>
         </div>
     )
 }
 
-export default JobEntryPage
+export default NewJobEntryPage

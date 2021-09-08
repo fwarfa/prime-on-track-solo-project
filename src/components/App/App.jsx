@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import {
   HashRouter as Router,
   Redirect,
+  Link,
   Route,
   Switch,
 } from 'react-router-dom';
@@ -15,12 +16,16 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
+import ProfilePage from '../ProfilePage/ProfilePage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import HomePage from '../HomePage/HomePage';
+import NewJobEntryPage from '../NewJobEntryPage/NewJobEntryPage';
+import JobEntry from '../JobEntry/JobEntry';
 
 import './App.css';
+import LoginForm from '../LoginForm/LoginForm';
 
 function App() {
   const dispatch = useDispatch();
@@ -36,9 +41,7 @@ function App() {
       <div>
         <Nav />
         <Switch>
-          {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           <Redirect exact from="/" to="/home" />
-
           {/* Visiting localhost:3000/about will show the about page. */}
           <Route
             // shows AboutPage at all times (logged in or not)
@@ -61,11 +64,25 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+            // logged in shows ProfilePage else shows LoginPage
             exact
-            path="/info"
+            path="/profile"
           >
-            <InfoPage />
+            <ProfilePage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/newJobEntry"
+          >
+            <NewJobEntryPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/jobEntry"
+          >
+            <JobEntry />
           </ProtectedRoute>
 
           <Route
@@ -103,10 +120,11 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+              
+              <HomePage />
               :
               // Otherwise, show the Landing page
-              <LandingPage />
+              <LoginPage />
             }
           </Route>
 
@@ -122,3 +140,39 @@ function App() {
 }
 
 export default App;
+
+
+{/* <Router>
+<div>
+
+    <nav>
+      <Link to="/home">
+        <p>Home</p>
+      </Link>
+      <Link to="/about">
+        <p>About</p>
+      </Link>
+      <Link to="/user">
+        <p>User</p>
+      </Link>
+      <Link to="/user">
+        <p>Login</p>
+      </Link>
+    </nav>
+    <header>
+      <h1>On-Track Solo Project</h1>
+    </header>
+
+
+    
+    <Route exact path="/user">
+      <UserPage />
+    </Route>
+    <Route exact path="/about">
+      <AboutPage />
+    </Route>
+    <Route exact path="/hi">
+
+    </Route>
+</div>
+</Router> */}

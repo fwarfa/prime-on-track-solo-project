@@ -124,21 +124,21 @@ TODO LIST
 
 Setup
 
-  [] npm installs
-    [] do install
-    [] add missing necessary dependancies
-  [] read through files/understand template
-  [] update existing components names to match project
-    [] add routes/paths for new pages to nav
-  [] add more inputs to registration form
-    [] add, fist/last name, email
-    [] edit corresponding data and endpoint to match
-  [] Create saga for job details and add to root saga
-  [] Create Reducer for job details
-  [] Create job router file and add to server.js
+  [x] npm installs
+    [x] do install
+    [x] add missing necessary dependancies
+  [x] read through files/understand template
+  [x] update existing components names to match project
+    [x] add routes/paths for new pages to nav
+  [x] add more inputs to registration form
+    [x] add, fist/last name, email
+    [x] edit corresponding data and endpoint to match
+  [x] Create saga for job details and add to root saga
+  [x] Create Reducer for job details
+  [x] Create job router file and add to server.js
   [] Create Database
     [] add necessary tables
-    [] match db name to modules/pool
+    [x] match db name to modules/pool
     [] update database file with new tables
 
 ---------- Pages --------------
@@ -150,12 +150,12 @@ Setup
 
 [] Home Page
   [] Add Profile Info
-    [] use user reducer to get info
-    [] edit profile button
-      [] history push to take you profile page
+    [x] use user reducer to get info
+    [x] edit profile button
+      [x] history push to take you profile page
     [] style profile info to be on left side of page with a divider
-  [] add new job hunt button
-    [] history push should to take you to NewJobEntryPage
+  [x] add new job hunt button
+    [x] history push should take you to NewJobEntryPage
   [] Display Previous job hunts by title
     [] use mapping to display each job hunt
     [] reach out to brad about how the sql table and how it will look (hunt title)
@@ -184,15 +184,15 @@ Setup
   [] job title and item loaded and map will be the clicked hunt (by id/key)
  
 [] New Job Entry Page
-  [] create input fields 
+  [x] create input fields 
     [] style them 
-  [] create local state to capture values
-  [] send local state object as payload to saga
-  [] build saga generator function (post)
-    [] set up put function that makes 
+  [x] create local state to capture values
+  [x] send local state object as payload to saga
+  [x] build saga generator function (post)
+  [] set up put function that makes 
         get saga function call
         and rerenders data on dashboard
-  [] build post end point in router to insert data to table
+  [x] build post end point in router to insert data to db table
   [] add additional job button
     [] button should have collapse functionality
     [] button should show another set of inputs to add job

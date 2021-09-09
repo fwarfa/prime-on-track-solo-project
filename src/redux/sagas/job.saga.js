@@ -11,7 +11,7 @@ function* addJobDetails(action) {
     // the client-side code know the user is logged in
     // yield put({ type: 'SET_JOB_DETAILS', payload: response.data });
   } catch (error) {
-    console.log('job post request failed', error);
+    console.log('job details post request failed', error);
   }
 }
 

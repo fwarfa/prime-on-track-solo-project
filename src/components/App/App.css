@@ -1,4 +1,4 @@
-html,
+/* html,
 body,
 #react-root {
   height: 100%;
@@ -14,20 +14,12 @@ img {
   max-width: 100%;
 }
 
-/* --------------------------------------------------------------------------------
-Container
--------------------------------------------------------------------------------- */
-
 .container {
   padding: 20px;
 }
 
-/* --------------------------------------------------------------------------------
-Button
--------------------------------------------------------------------------------- */
-
 .btn {
-  /* display: inline-block;
+  display: inline-block;
   padding: 10px 20px;
   border-color: #014041;
   border-width: 1px 1px 3px;
@@ -36,7 +28,7 @@ Button
   color: #f8f8f8;
   font-size: 1.1rem;
   outline: 0;
-  cursor: pointer; */
+  cursor: pointer; 
 
 }
 
@@ -60,7 +52,6 @@ Button
   text-decoration: none;
 }
 
-/* This line makes the "Register" and "Login" buttons look like links */
 .btn_asLink {
   padding: 0;
   border-width: 0;
@@ -77,10 +68,6 @@ Button
   color: #008183;
 }
 
-/* --------------------------------------------------------------------------------
-Alert
--------------------------------------------------------------------------------- */
-
 .alert {
   box-sizing: border-box;
   padding: 15px 10px;
@@ -91,10 +78,6 @@ Alert
   color: #e01616;
   font-size: 0.8rem;
 }
-
-/* --------------------------------------------------------------------------------
-Form Treatment
--------------------------------------------------------------------------------- */
 
 .formPanel {
   box-sizing: border-box;
@@ -110,4 +93,4 @@ Form Treatment
 input {
   margin: 5px;
   margin-bottom: 10px;
-}
+} */

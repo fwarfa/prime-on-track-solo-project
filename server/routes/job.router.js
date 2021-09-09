@@ -30,22 +30,35 @@ router.post('/details', (req, res) => {
     const contactEmail = req.body.contactEmail;
     const contactNumber = req.body.contactNumber;
     const userId = req.user.id;
+    const huntTitle = req.body.huntTitle;
 
-    const queryText = `
-        INSERT INTO "job_details" 
-            (company_name, application_url, position_title, application_status, 
-            interview_stage, contact_name, contact_email, contact_phone_number, offer, user_id)
+    const insertJobHuntQuery = `
+        INSERT INTO "job_hunt" 
+            (job_hunt_title)
         VALUES 
-            ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id`;
-    pool
-        .query(queryText, [company, applicationUrl, position, appStatus, interviewStage, contactName, contactEmail, contactNumber, offer, userId])
+            ($1) 
+        RETURNING "id"`;
+    pool.query(insertJobHuntQuery, [huntTitle])
         .then((result) => {
-            console.log('id of job detail is, ', result.id);
-            
-            res.sendStatus(201)
-        })
-        .catch((err) => {
-        console.log('Job Entry POST failed: ', err);
+            console.log('id of job detail is, ', result.rows[0].id);
+            const createJobDetailId = result.rows[0].id;
+
+            const insertJobDetailQuery = `
+              INSERT INTO "job_details" 
+                  (company_name, application_url, position_title, application_status, 
+                  interview_stage, contact_name, contact_email, contact_phone_number, offer, user_id, job_hunt_id)
+              VALUES 
+                  ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`;
+            pool.query(insertJobDetailQuery, [company, applicationUrl, position, appStatus, interviewStage, contactName, contactEmail, contactNumber, offer, userId, createJobDetailId])
+              .then(result => {
+                  res.sendStatus(201);
+              }).catch(err => {
+                // catch for second query
+                console.log('Job Details POST failed: ',err);
+                res.sendStatus(500)
+              })
+        }).catch(err => {
+        console.log('Job Hunt POST failed: ', err);
         res.sendStatus(500);
         })
 });

@@ -38,6 +38,7 @@ function NewJobEntryPage() {
             payload: appDetails
         });
         // setApplDetails(job);
+        history.push('/dashboard')
     }
 
     return (

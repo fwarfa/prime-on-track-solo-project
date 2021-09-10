@@ -5,18 +5,32 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* addJobDetails(action) {
   try {
     yield axios.post('/api/job/details', action.payload);
-
-    // now that the session has given us a user object
-    // with an id and username set the client-side user object to let
-    // the client-side code know the user is logged in
-    // yield put({ type: 'SET_JOB_DETAILS', payload: response.data });
+    yield put({
+      type: 'FETCH_JOB_DETAILS'
+    });
   } catch (error) {
     console.log('job details post request failed', error);
   }
 }
 
+function* fetchJobDetails() {
+  try{
+    const response = yield axios.get('/api/job/details');
+    console.log('response.data is ', response.data);
+
+    yield put({
+      type: 'SET_JOB_DETAILS',
+      payload: response.data
+    })
+  }
+  catch(error) {
+    console.log('get job details request failed', error);
+  }
+}
+
 function* jobSaga() {
   yield takeLatest('ADD_JOB_DETAILS', addJobDetails);
+  yield takeLatest('FETCH_JOB_DETAILS', fetchJobDetails);
 }
 
 export default jobSaga;

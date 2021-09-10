@@ -22,7 +22,9 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import HomePage from '../HomePage/HomePage';
 import NewJobEntryPage from '../NewJobEntryPage/NewJobEntryPage';
+import DashboardPage from '../DashboardPage/DashboardPage';
 import JobEntry from '../JobEntry/JobEntry';
+
 
 import './App.css';
 import LoginForm from '../LoginForm/LoginForm';
@@ -76,6 +78,13 @@ function App() {
             path="/newJobEntry"
           >
             <NewJobEntryPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/dashboard"
+          >
+            <DashboardPage />
           </ProtectedRoute>
 
           <ProtectedRoute

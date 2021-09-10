@@ -165,7 +165,7 @@ Setup
       [] view button will take you to details about that previous job hunt
 
 [] Profile Page
-  [] display current demographic
+  [x] display current demographic
   [] add input fields 
     [] first name, last name, bio, email
     [] username, password
@@ -198,7 +198,7 @@ Setup
     [] button should show another set of inputs to add job
   [] cancel button that takes you to home page
   [] submit button 
-    [] submit will initiate dipatch function
+    [x] submit will initiate dipatch function
     [] submit should take you to dashboard page
 
 [] Dashboard Page

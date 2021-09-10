@@ -32,6 +32,10 @@ function Nav() {
               Profile
             </Link>
 
+            <Link className="navLink" to="/dashboard">
+              Dashboard
+            </Link>
+
             <LogOutButton className="navLink" />
           </>
         )}

@@ -8,10 +8,16 @@ const pool = require('../modules/pool');
 
 const router = express.Router();
 
-// Handles Ajax request for user information if user is authenticated
-router.get('/', rejectUnauthenticated, (req, res) => {
-  // Send back user object from the session (previously queried from the database)
-  res.send(req.user);
+router.get('/details', (req, res) => {
+  const query = `SELECT * FROM job_details`;
+  pool.query(query)
+    .then( result => {
+      res.send(result.rows);
+    })
+    .catch(err => {
+      console.log('Job Details GET failed', err);
+      res.sendStatus(500)
+    })
 });
 
 // Handles POST request with new user data

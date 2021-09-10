@@ -20,6 +20,18 @@ router.get('/details', (req, res) => {
     })
 });
 
+router.get('/hunt', (req, res) => {
+  const query = `SELECT * FROM job_hunt`;
+  pool.query(query)
+    .then( result => {
+      res.send(result.rows);
+    })
+    .catch(err => {
+      console.log('Job Hunt GET failed', err);
+      res.sendStatus(500)
+    })
+});
+
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted

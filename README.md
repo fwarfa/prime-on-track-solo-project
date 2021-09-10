@@ -203,8 +203,8 @@ Setup
 
 [] Dashboard Page
   [] create table to hold all current jobs
-    [] map through data for each job item
-      [] display in table
+    [x] map through data for each job item
+      [x] display in table
       [] each job item should include an edit button icon
         [] edit button will take you edit job page and display job clicked(by id/key)
         [] edit button will initiate a dispatch

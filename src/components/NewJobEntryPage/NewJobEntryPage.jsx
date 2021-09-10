@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 function NewJobEntryPage() {
+    const jobHuntInfo = useSelector(store => store.jobHunt);
+
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -25,6 +27,12 @@ function NewJobEntryPage() {
         setApplDetails({...appDetails, [event.target.name]:event.target.value })
       };
 
+    const handleJobClick = () => {
+        dispatch({
+            type: 'FETCH_JOB_HUNT'
+        });
+        console.log('job hunt ', jobHuntInfo);
+    }
     const handleCancel = () => {
         history.push('/home');
     }
@@ -43,7 +51,7 @@ function NewJobEntryPage() {
 
     return (
         <div>
-            <h1>Job Entry</h1>
+            <h1 onClick={handleJobClick}>Job Entry</h1>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="titleOfJobHunt" className="form-label">Title Of New Job Hunt</label>

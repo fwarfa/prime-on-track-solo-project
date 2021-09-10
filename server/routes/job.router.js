@@ -50,6 +50,37 @@ router.post('/details', (req, res) => {
     const userId = req.user.id;
     const huntTitle = req.body.huntTitle;
 
+    // Validation to see if job hunt already exists
+    // if it does we skip firt query and set jobhuntid
+    // otherwise we run both first and second queries
+    // and get the jobHuntId from the first query
+    if (req.body.jobHuntId) {
+      // SKIP 1ST QUERY 
+      const jobHuntId = req.body.jobHuntId;
+
+      const insertJobDetailQuery = `
+        INSERT INTO "job_details" 
+            (company_name, application_url, position_title, application_status, 
+            interview_stage, contact_name, contact_email, contact_phone_number, offer, user_id, job_hunt_id)
+        VALUES 
+            ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`;
+      pool.query(insertJobDetailQuery, [company, applicationUrl, position, appStatus, interviewStage, contactName, contactEmail, contactNumber, offer, userId, jobHuntId])
+        .then(result => {
+            res.sendStatus(201);
+        }).catch(err => {
+          // catch for second query
+          console.log('Job Details POST failed: ',err);
+          res.sendStatus(500)
+        })
+        return;
+    }
+    else {
+      // DO FIRST QUERY
+      console.log('continue on');
+      
+    }
+
+
     const insertJobHuntQuery = `
         INSERT INTO "job_hunt" 
             (job_hunt_title)

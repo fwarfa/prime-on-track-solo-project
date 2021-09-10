@@ -3,6 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 function NewJobEntryPage() {
+    // useEffect(() => {
+    //     dispatch({
+    //         type: 'FETCH_JOB_HUNT'
+    //     });
+    // }, [])
     const jobHuntInfo = useSelector(store => store.jobHunt);
 
     const dispatch = useDispatch();
@@ -27,12 +32,6 @@ function NewJobEntryPage() {
         setApplDetails({...appDetails, [event.target.name]:event.target.value })
       };
 
-    const handleJobClick = () => {
-        dispatch({
-            type: 'FETCH_JOB_HUNT'
-        });
-        console.log('job hunt ', jobHuntInfo);
-    }
     const handleCancel = () => {
         history.push('/home');
     }
@@ -49,14 +48,25 @@ function NewJobEntryPage() {
         history.push('/dashboard')
     }
 
+    // notes
+    // I want first to do this after div of ternary below
+    // I want to capture id of job hunt row that has null date 
+    // and dispatch that id along with job object data
+
+    // ideas
+    // jobHuntId = jobHuntInfo[jobHuntInfo.length -1].id
+    //
+    
     return (
         <div>
-            <h1 onClick={handleJobClick}>Job Entry</h1>
+            <h1>Job Entry</h1>
             <form onSubmit={handleSubmit}>
+                {jobHuntInfo.end_date !== undefined &&
                 <div className="mb-3">
                     <label htmlFor="titleOfJobHunt" className="form-label">Title Of New Job Hunt</label>
                     <input name="huntTitle" type="text" className="form-control" placeholder="Position Desired" onChange={handleChange} value={appDetails.huntTitle}/>
                 </div>
+                }
                 <div className="mb-3">
                     <label htmlFor="jobEntryFields" className="form-label">Add Position Applied</label>
                     <input name="company" type="text" className="form-control" placeholder="company" onChange={handleChange} value={appDetails.company}/>

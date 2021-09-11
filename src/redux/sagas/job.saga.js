@@ -28,9 +28,22 @@ function* fetchJobDetails() {
   }
 }
 
+function* deleteJobDetails(action) {
+  try {
+    yield axios.delete(`/api/job/details/${action.payload}`);
+
+    yield put({
+      type: 'FETCH_JOB_DETAILS'
+    })
+  } catch (error) {
+    
+  }
+}
+
 function* jobSaga() {
   yield takeLatest('ADD_JOB_DETAILS', addJobDetails);
   yield takeLatest('FETCH_JOB_DETAILS', fetchJobDetails);
+  yield takeLatest('DELETE_JOB_DETAILS', deleteJobDetails)
 }
 
 export default jobSaga;

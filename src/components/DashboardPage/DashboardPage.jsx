@@ -11,6 +11,13 @@ function DashboardPage() {
         });
     }, [])
 
+    const handleDelete = (id) => {
+        console.log('just clicked: ', id);
+        dispatch({
+            type: 'DELETE_JOB_DETAILS',
+            payload: id
+        })
+    }
     return (
         <div>
             <h4>Dashboard</h4>
@@ -35,7 +42,7 @@ function DashboardPage() {
                 </thead>
                 <tbody>
                     {jobDetailInfo.map(job => (
-                        <tr>
+                        <tr key={job.id}>
                             <th scope="row">{job.id}</th>
                             <td><button>edit</button></td>
                             <td>{job.company_name}</td>
@@ -48,7 +55,7 @@ function DashboardPage() {
                             <td>{job.interview_stage}</td>
                             <td>{job.offer ? <p>yes</p> : <p>no</p>}</td>
                             <td>{job.offer_accepted ? <p>yes</p> : <p>no</p>}</td>
-                            <td><button>delete</button></td>   
+                            <td><button onClick={() => handleDelete(job.id)}>delete</button></td>   
                         </tr>
                     ))}
                 </tbody>

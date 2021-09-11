@@ -111,4 +111,19 @@ router.post('/details', (req, res) => {
         })
 });
 
+router.delete('/details/:id', (req, res) => {
+  let id = [req.params.id];
+  console.log('id is ', id);
+  
+  const query = `DELETE FROM job_details WHERE id = $1`;
+  pool.query(query, id)
+    .then( result => {
+      res.sendStatus(200);
+    })
+    .catch(err => {
+      console.log('Job Details GET failed', err);
+      res.sendStatus(500)
+    })
+});
+
 module.exports = router;

@@ -28,51 +28,37 @@ function NewJobEntryPage() {
         jobHuntId: 1
     };
 
-    const [appDetails, setApplDetails] = useState(job);
+    const [appDetails, setAppDetails] = useState(job);
 
     const handleChange = (event) =>{
-        setApplDetails({...appDetails, [event.target.name]:event.target.value })
+        setAppDetails({...appDetails, [event.target.name]:event.target.value })
       };
 
     const handleCancel = () => {
         history.push('/home');
     }
 
-    // (jobHuntInfo.length > 0) && (jobHuntInfo[jobHuntInfo.length -1].end_date !== null)
     const handleSubmit = (event) => {
         event.preventDefault()
         console.log('appDetail ', appDetails);
         if (jobHuntInfo.length > 0 && jobHuntInfo[jobHuntInfo.length -1].end_date === null) {
-            console.log('HELLO, 3');
-            setApplDetails({...appDetails, [appDetails.jobHuntId]: jobHuntInfo[jobHuntInfo.length -1].id});
+            console.log('**** test ****');
+            // not working as is now
+            setAppDetails({...appDetails, [appDetails.jobHuntId]: jobHuntInfo[jobHuntInfo.length -1].id});
         }
         console.log('appDetail ', appDetails);
         dispatch({
             type: 'ADD_JOB_DETAILS',
             payload: appDetails
         });
-        setApplDetails(job);
+        setAppDetails(job);
         history.push('/dashboard')
     }
-
-    // notes
-    // I want first to do this after div of ternary below
-    // I want to capture id of job hunt row that has null date 
-    // and dispatch that id along with job object data
-
-    // ideas
-    // jobHuntId = jobHuntInfo[jobHuntInfo.length -1].id
-    // handleJobClick
-
-    // const handleJobClick = () => {
-    //     console.log(jobHuntInfo[jobHuntInfo.length -1].id);
-    // }
 
     return (
         <div>
             <h1>Job Entry</h1>
             <form onSubmit={handleSubmit}>
-                {/* currently supposed to be working but is not, was working before */}
                 {(( jobHuntInfo.length === 0 || jobHuntInfo[jobHuntInfo.length -1].end_date !== null)) &&
                 <div className="mb-3">
                     <label htmlFor="titleOfJobHunt" className="form-label">Title Of New Job Hunt</label>

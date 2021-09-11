@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import logger from 'redux-logger';
 
 function NewJobEntryPage() {
-    // useEffect(() => {
-    //     dispatch({
-    //         type: 'FETCH_JOB_HUNT'
-    //     });
-    // }, [])
     const jobHuntInfo = useSelector(store => store.jobHunt);
-
     const dispatch = useDispatch();
-    const history = useHistory();
+    const history = useHistory(); 
+
+    useEffect(() => {
+        dispatch({
+            type: 'FETCH_JOB_HUNT'
+        });
+    }, [])
 
     let job = {
         huntTitle: '',
@@ -24,6 +25,7 @@ function NewJobEntryPage() {
         contactName: '',
         contactEmail: '',
         contactNumber: '',
+        jobHuntId: 1
     };
 
     const [appDetails, setApplDetails] = useState(job);
@@ -36,15 +38,20 @@ function NewJobEntryPage() {
         history.push('/home');
     }
 
+    // (jobHuntInfo.length > 0) && (jobHuntInfo[jobHuntInfo.length -1].end_date !== null)
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log('appDetails', appDetails);
-
+        console.log('appDetail ', appDetails);
+        if (jobHuntInfo.length > 0 && jobHuntInfo[jobHuntInfo.length -1].end_date === null) {
+            console.log('HELLO, 3');
+            setApplDetails({...appDetails, [appDetails.jobHuntId]: jobHuntInfo[jobHuntInfo.length -1].id});
+        }
+        console.log('appDetail ', appDetails);
         dispatch({
             type: 'ADD_JOB_DETAILS',
             payload: appDetails
         });
-        // setApplDetails(job);
+        setApplDetails(job);
         history.push('/dashboard')
     }
 
@@ -55,18 +62,23 @@ function NewJobEntryPage() {
 
     // ideas
     // jobHuntId = jobHuntInfo[jobHuntInfo.length -1].id
-    //
-    
+    // handleJobClick
+
+    // const handleJobClick = () => {
+    //     console.log(jobHuntInfo[jobHuntInfo.length -1].id);
+    // }
+
     return (
         <div>
             <h1>Job Entry</h1>
             <form onSubmit={handleSubmit}>
-                {jobHuntInfo.end_date !== undefined &&
+                {/* currently supposed to be working but is not, was working before */}
+                {(( jobHuntInfo.length === 0 || jobHuntInfo[jobHuntInfo.length -1].end_date !== null)) &&
                 <div className="mb-3">
                     <label htmlFor="titleOfJobHunt" className="form-label">Title Of New Job Hunt</label>
                     <input name="huntTitle" type="text" className="form-control" placeholder="Position Desired" onChange={handleChange} value={appDetails.huntTitle}/>
                 </div>
-                }
+                } 
                 <div className="mb-3">
                     <label htmlFor="jobEntryFields" className="form-label">Add Position Applied</label>
                     <input name="company" type="text" className="form-control" placeholder="company" onChange={handleChange} value={appDetails.company}/>

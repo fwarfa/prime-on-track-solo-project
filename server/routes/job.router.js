@@ -50,6 +50,8 @@ router.post('/details', (req, res) => {
     const userId = req.user.id;
     const huntTitle = req.body.huntTitle;
 
+    console.log('jobHuntId', req.body.jobHuntId);
+    
     // Validation to see if job hunt already exists
     // if it does we skip firt query and set jobhuntid
     // otherwise we run both first and second queries
@@ -57,7 +59,8 @@ router.post('/details', (req, res) => {
     if (req.body.jobHuntId) {
       // SKIP 1ST QUERY 
       const jobHuntId = req.body.jobHuntId;
-
+      console.log('this is cool');
+      
       const insertJobDetailQuery = `
         INSERT INTO "job_details" 
             (company_name, application_url, position_title, application_status, 
@@ -66,6 +69,8 @@ router.post('/details', (req, res) => {
             ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`;
       pool.query(insertJobDetailQuery, [company, applicationUrl, position, appStatus, interviewStage, contactName, contactEmail, contactNumber, offer, userId, jobHuntId])
         .then(result => {
+          console.log('this was hit yay');
+          
             res.sendStatus(201);
         }).catch(err => {
           // catch for second query
@@ -74,12 +79,6 @@ router.post('/details', (req, res) => {
         })
         return;
     }
-    else {
-      // DO FIRST QUERY
-      console.log('continue on');
-      
-    }
-
 
     const insertJobHuntQuery = `
         INSERT INTO "job_hunt" 

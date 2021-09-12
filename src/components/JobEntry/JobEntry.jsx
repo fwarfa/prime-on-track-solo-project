@@ -46,12 +46,8 @@ function JobEntry() {
             <h1>Job Entry</h1>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label htmlFor="titleOfJobHunt" className="form-label">Title Of New Job Hunt</label>
-                    <input name="huntTitle" type="text" className="form-control" placeholder="Position Desired" onChange={handleChange} value={appDetails.huntTitle}/>
-                </div>
-                <div className="mb-3">
                     <label htmlFor="jobEntryFields" className="form-label">Add Position Applied</label>
-                    <input name="company" type="text" className="form-control" placeholder="company" onChange={handleChange} value={appDetails.company}/>
+                    <input name="company" type="text" className="form-control" placeholder="company" onChange={handleChange} defaultValue="hello" value={appDetails.company}/>
                     <input name="applicationUrl" type="text" className="form-control" placeholder="application url" onChange={handleChange} value={appDetails.applicationUrl}/>
                     <input name="position" type="text" className="form-control" placeholder="position titile" onChange={handleChange} value={appDetails.position}/>
                     <select name="appStatus" className="form-select" aria-label="Application Status" onChange={handleChange} value={appDetails.appStatus}>

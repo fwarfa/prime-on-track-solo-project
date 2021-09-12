@@ -25,7 +25,7 @@ function NewJobEntryPage() {
         contactName: '',
         contactEmail: '',
         contactNumber: '',
-        jobHuntId: 1
+        jobHuntId: ''
     };
 
     const [appDetails, setAppDetails] = useState(job);
@@ -39,20 +39,20 @@ function NewJobEntryPage() {
     }
 
     const handleSubmit = (event) => {
-        event.preventDefault()
-        console.log('appDetail ', appDetails);
+        event.preventDefault();
+        let huntId = jobHuntInfo[jobHuntInfo.length -1].id
         if (jobHuntInfo.length > 0 && jobHuntInfo[jobHuntInfo.length -1].end_date === null) {
             console.log('**** test ****');
             // not working as is now
-            setAppDetails({...appDetails, [appDetails.jobHuntId]: jobHuntInfo[jobHuntInfo.length -1].id});
+            setAppDetails({...appDetails, jobHuntId: huntId});
         }
         console.log('appDetail ', appDetails);
         dispatch({
             type: 'ADD_JOB_DETAILS',
             payload: appDetails
         });
-        setAppDetails(job);
-        history.push('/dashboard')
+        // setAppDetails(job);
+        // history.push('/dashboard')
     }
 
     return (

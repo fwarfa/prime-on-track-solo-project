@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 
 function JobEntry() {
     const jobHuntInfo = useSelector(store => store.jobHunt);
-    const jobs = useSelector(store => store.jobDetails);
     const jobDetail = useSelector(store => store.jobDetail);
     const dispatch = useDispatch();
     const history = useHistory(); 
@@ -22,17 +21,17 @@ function JobEntry() {
     // }, [])
 
     let job = {
-        company: jobDetail[0].company_name,
-        applicationUrl: jobDetail[0].application_url,
-        position: jobDetail[0].position_title,
-        appStatus: jobDetail[0].application_status,
-        interviewStage: jobDetail[0].interview_stage,
-        offer: jobDetail[0].offer,
-        contactName: jobDetail[0].contact_name,
-        contactEmail: jobDetail[0].contact_email,
-        contactNumber: jobDetail[0].contact_phone_number,
-        jobHuntId: jobDetail[0].job_hunt_id,
-        id: jobDetail[0].id
+        company: jobDetail.company,
+        applicationUrl: jobDetail.applicationUrl,
+        position: jobDetail.position,
+        appStatus: jobDetail.appStatus,
+        interviewStage: jobDetail.interviewStage,
+        offer: jobDetail.offer,
+        contactName: jobDetail.contactName,
+        contactEmail: jobDetail.contactEmail,
+        contactNumber: jobDetail.contactNumber,
+        jobHuntId: jobDetail.jobHuntId,
+        id: jobDetail.id
     };
 
     const [editDetails, setEditDetails] = useState(job);
@@ -70,9 +69,9 @@ function JobEntry() {
         <form onSubmit={handleSubmit}>
             <div className="mb-3">
                 <label onClick={app} htmlFor="jobEntryFields" className="form-label">Add Position Applied</label>
-                <input name="company" type="text" className="form-control" placeholder={jobDetail[0].company_name} onChange={handleChange} value={editDetails.company}/>
-                <input name="applicationUrl" type="text" className="form-control" placeholder={jobDetail[0].application_url} onChange={handleChange} value={editDetails.applicationUrl}/>
-                <input name="position" type="text" className="form-control" placeholder={jobDetail[0].position_title} onChange={handleChange} value={editDetails.position}/>
+                <input name="company" type="text" className="form-control" placeholder="company" onChange={handleChange} value={editDetails.company}/>
+                <input name="applicationUrl" type="text" className="form-control" placeholder="Application Url" onChange={handleChange} value={editDetails.applicationUrl}/>
+                <input name="position" type="text" className="form-control" placeholder="position" onChange={handleChange} value={editDetails.position}/>
                 <select name="appStatus" className="form-select" aria-label="Application Status" onChange={handleChange} value={editDetails.appStatus}>
                     <option selected>Application Status</option>
                     <option value="Pending">Pending</option>
@@ -89,9 +88,9 @@ function JobEntry() {
                     <input name="offer" className="form-check-input" type="checkbox" id="offerSwitch" onChange={handleChange} value={editDetails.offer}/>
                     <label className="form-check-label" htmlFor="offerSwitch">Offer Received</label>
                 </div>
-                <input name="contactName" type="text" className="form-control" placeholder={jobDetail[0].contact_name} onChange={handleChange} value={editDetails.contactName}/>
-                <input name="contactEmail" type="text" className="form-control" placeholder={jobDetail[0].contact_email} onChange={handleChange} value={editDetails.contactEmail}/>
-                <input name="contactNumber" type="text" className="form-control" placeholder={jobDetail[0].contact_phone_number} onChange={handleChange} value={editDetails.contactNumber}/>
+                <input name="contactName" type="text" className="form-control" placeholder="contact name" onChange={handleChange} value={editDetails.contactName}/>
+                <input name="contactEmail" type="text" className="form-control" placeholder="contact email" onChange={handleChange} value={editDetails.contactEmail}/>
+                <input name="contactNumber" type="text" className="form-control" placeholder="contact phone number" onChange={handleChange} value={editDetails.contactNumber}/>
             </div>
             <button onClick={handleCancel}>Cancel</button>
             <button type="submit">Submit</button>

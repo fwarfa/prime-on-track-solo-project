@@ -22,16 +22,35 @@ function DashboardPage() {
     }
 
     const handleEdit = (id) => {
-        console.log('edit clicked for: ', id);
         // dispatch({
         //     type: 'CLEAR_JOB'
         // });
-        for (job of job)
+
+        let jobToEdit;
+        for (let job of jobDetailInfo) {
+            if (job.id === id) {
+                jobToEdit = {
+                    company: job.company_name,
+                    applicationUrl: job.application_url,
+                    position: job.position_title,
+                    appStatus: job.application_status,
+                    interviewStage: job.interview_stage,
+                    offer: job.offer,
+                    contactName: job.contact_name,
+                    contactEmail: job.contact_email,
+                    contactNumber: job.contact_phone_number,
+                    jobHuntId: job.job_hunt_id,
+                    id: job.id
+                }
+            }
+        }
+
+        console.log('job to edit ', jobToEdit);
 
         dispatch({
-            type: 'FETCH_EDIT_DETAILS',
-            payload: id
-        })
+            type: 'SET_JOB',
+            payload: jobToEdit
+        });
         history.push('/jobEntry');
         
     }
@@ -63,9 +82,9 @@ function DashboardPage() {
                     </tr>
                 </thead>
                 <tbody>
-                    {jobDetailInfo.map(job => (
-                        <tr key={job.id}>
-                            <th scope="row">{job.id}</th>
+                    {jobDetailInfo.map((job, index) => (
+                        <tr key={index}>
+                            <th scope="row">{index + 1}</th>
                             <td><button onClick={() => handleEdit(job.id)}>edit</button></td>
                             <td>{job.company_name}</td>
                             <td>{job.contact_name}</td>

@@ -6,11 +6,13 @@ function NewJobEntryPage() {
     const jobHuntInfo = useSelector(store => store.jobHunt);
     const dispatch = useDispatch();
     const history = useHistory(); 
+    // let hundId = jobHuntInfo[jobHuntInfo.length -1].id;
 
     useEffect(() => {
         dispatch({
             type: 'FETCH_JOB_HUNT'
         });
+        // console.log('job hunt', jobHuntInfo);
     }, [])
 
     let job = {
@@ -37,21 +39,28 @@ function NewJobEntryPage() {
         history.push('/home');
     }
 
+    const handleTest = () => {
+        console.log('job hunt reducer', jobHuntInfo);
+    }
+
+    
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        let huntId = jobHuntInfo[jobHuntInfo.length -1].id
+        let jobstuff = appDetails;
         if (jobHuntInfo.length > 0 && jobHuntInfo[jobHuntInfo.length -1].end_date === null) {
-            console.log('**** test ****');
+            
+            console.log('**** test ****', jobHuntInfo[jobHuntInfo.length -1].id);
             // not working as is now
-            setAppDetails({...appDetails, jobHuntId: huntId});
+           jobstuff = {...appDetails, jobHuntId: jobHuntInfo[jobHuntInfo.length -1].id};
         }
-        console.log('appDetail ', appDetails);
+        console.log('jobstuff ', jobstuff);
         dispatch({
             type: 'ADD_JOB_DETAILS',
-            payload: appDetails
+            payload: jobstuff
         });
         // setAppDetails(job);
-        // history.push('/dashboard')
+        history.push('/dashboard')
     }
 
     return (
@@ -65,7 +74,7 @@ function NewJobEntryPage() {
                 </div>
                 } 
                 <div className="mb-3">
-                    <label htmlFor="jobEntryFields" className="form-label">Add Position Applied</label>
+                    <label onClick={handleTest} htmlFor="jobEntryFields" className="form-label">Add Position Applied</label>
                     <input name="company" type="text" className="form-control" placeholder="company" onChange={handleChange} value={appDetails.company}/>
                     <input name="applicationUrl" type="text" className="form-control" placeholder="application url" onChange={handleChange} value={appDetails.applicationUrl}/>
                     <input name="position" type="text" className="form-control" placeholder="position titile" onChange={handleChange} value={appDetails.position}/>

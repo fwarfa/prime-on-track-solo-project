@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom';
 
 function DashboardPage() {
     const dispatch = useDispatch();
     const jobDetailInfo = useSelector(store => store.jobDetails);
+    const history = useHistory();
 
     useEffect(() => {
         dispatch({
@@ -21,15 +23,27 @@ function DashboardPage() {
 
     const handleEdit = (id) => {
         console.log('edit clicked for: ', id);
+        // dispatch({
+        //     type: 'CLEAR_JOB'
+        // });
+        for (job of job)
+
         dispatch({
             type: 'FETCH_EDIT_DETAILS',
             payload: id
         })
+        history.push('/jobEntry');
+        
     }
+
+    const onAddJob = () => {
+        history.push('/newJobEntry');
+    }
+
     return (
         <div>
             <h4>Dashboard</h4>
-
+            <button onClick={onAddJob}>Add Additional Job</button>
             <table className="table table-striped">
                 <thead>
                     <tr>

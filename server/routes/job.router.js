@@ -139,17 +139,43 @@ router.delete('/details/:id', (req, res) => {
     })
 });
 
-router.put('/details/:id', (req, res) => {
-  let id = [req.params.id];
-  console.log('id is ', id);
+router.put('/details', (req, res) => {
+  const company = req.body.company;
+  const applicationUrl = req.body.applicationUrl;
+  const position = req.body.position;
+  const appStatus = req.body.appStatus;
+  const interviewStage = req.body.interviewStage;
+  const offer = req.body.offer;
+  const contactName = req.body.contactName;
+  const contactEmail = req.body.contactEmail;
+  const contactNumber = req.body.contactNumber;
+  const userId = req.user.id;
+  const jobHuntId = req.body.jobHuntId;
+  const id = req.body.id;
   
-  const query = `DELETE FROM job_details WHERE id = $1`;
-  pool.query(query, id)
+  
+  const query = `
+    UPDATE job_details
+    SET 
+      company_name = $1, 
+      application_url = $2, 
+      position_title = $3,
+      application_status = $4,
+      interview_stage = $5,
+      contact_name = $6,
+      contact_email = $7,
+      contact_phone_number = $8,
+      offer = $9,
+      user_id = $10,
+      job_hunt_id = $11
+    WHERE id = $12;
+    `;
+  pool.query(query, [company, applicationUrl, position, appStatus, interviewStage, contactName, contactEmail, contactNumber, offer, userId, jobHuntId, id])
     .then( result => {
-      res.sendStatus(200);
+      res.send(result.rows);
     })
     .catch(err => {
-      console.log('Job Details GET failed', err);
+      console.log('Job Details PUT failed', err);
       res.sendStatus(500)
     })
 });

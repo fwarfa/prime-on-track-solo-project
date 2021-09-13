@@ -55,14 +55,13 @@ function* fetchEditDetails(action) {
 
 function* updateJobDetails(action) {
   try {
-    let response = yield axios.put(`/api/job/details/${action.payload.id}`);
+    yield axios.put('/api/job/details', action.payload);
 
     yield put({
-      type: 'SET_JOB',
-      payload: response.data
+      type: 'FETCH_JOB_DETAILS'
     })
   } catch (error) {
-    
+    console.log('UPDATE JOB ERROR ', error)
   }
 }
 

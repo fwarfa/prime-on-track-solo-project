@@ -22,7 +22,6 @@ function JobEntry() {
     // }, [])
 
     let job = {
-        huntTitle: '',
         company: jobDetail[0].company_name,
         applicationUrl: jobDetail[0].application_url,
         position: jobDetail[0].position_title,
@@ -32,7 +31,8 @@ function JobEntry() {
         contactName: jobDetail[0].contact_name,
         contactEmail: jobDetail[0].contact_email,
         contactNumber: jobDetail[0].contact_phone_number,
-        jobHuntId: jobDetail[0].job_hunt_id
+        jobHuntId: jobDetail[0].job_hunt_id,
+        id: jobDetail[0].id
     };
 
     const [editDetails, setEditDetails] = useState(job);
@@ -57,11 +57,11 @@ function JobEntry() {
         event.preventDefault();
         console.log('new edit details: ', editDetails);
 
-        // dispatch({
-        //     type: 'UPDATE_JOB_DETAILS',
-        //     payload: editDetails
-        // });
-        // history.push('/dashboard')
+        dispatch({
+            type: 'UPDATE_JOB_DETAILS',
+            payload: editDetails
+        });
+        history.push('/dashboard')
     }
 
     return (

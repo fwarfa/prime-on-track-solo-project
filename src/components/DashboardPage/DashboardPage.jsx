@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom';
 
 function DashboardPage() {
     const dispatch = useDispatch();
     const jobDetailInfo = useSelector(store => store.jobDetails);
+    const history = useHistory();
 
     useEffect(() => {
         dispatch({
@@ -11,10 +13,56 @@ function DashboardPage() {
         });
     }, [])
 
+    const handleDelete = (id) => {
+        console.log('delete clicked for: ', id);
+        dispatch({
+            type: 'DELETE_JOB_DETAILS',
+            payload: id
+        })
+    }
+
+    const handleEdit = (id) => {
+        // dispatch({
+        //     type: 'CLEAR_JOB'
+        // });
+
+        let jobToEdit;
+        for (let job of jobDetailInfo) {
+            if (job.id === id) {
+                jobToEdit = {
+                    company: job.company_name,
+                    applicationUrl: job.application_url,
+                    position: job.position_title,
+                    appStatus: job.application_status,
+                    interviewStage: job.interview_stage,
+                    offer: job.offer,
+                    contactName: job.contact_name,
+                    contactEmail: job.contact_email,
+                    contactNumber: job.contact_phone_number,
+                    jobHuntId: job.job_hunt_id,
+                    id: job.id
+                }
+            }
+        }
+
+        console.log('job to edit ', jobToEdit);
+
+        dispatch({
+            type: 'SET_JOB',
+            payload: jobToEdit
+        });
+        history.push('/jobEntry');
+        
+    }
+
+    const onAddJob = () => {
+        history.push('/newJobEntry');
+    }
+
     return (
         <div>
             <h4>Dashboard</h4>
-
+            <button onClick={onAddJob}>Add Additional Job</button>
             <table className="table table-striped">
                 <thead>
                     <tr>
@@ -34,10 +82,10 @@ function DashboardPage() {
                     </tr>
                 </thead>
                 <tbody>
-                    {jobDetailInfo.map(job => (
-                        <tr>
-                            <th scope="row">{job.id}</th>
-                            <td><button>edit</button></td>
+                    {jobDetailInfo.map((job, index) => (
+                        <tr key={index}>
+                            <th scope="row">{index + 1}</th>
+                            <td><button onClick={() => handleEdit(job.id)}>edit</button></td>
                             <td>{job.company_name}</td>
                             <td>{job.contact_name}</td>
                             <td>{job.contact_phone_number}</td>
@@ -48,7 +96,7 @@ function DashboardPage() {
                             <td>{job.interview_stage}</td>
                             <td>{job.offer ? <p>yes</p> : <p>no</p>}</td>
                             <td>{job.offer_accepted ? <p>yes</p> : <p>no</p>}</td>
-                            <td><button>delete</button></td>   
+                            <td><button onClick={() => handleDelete(job.id)}>delete</button></td>   
                         </tr>
                     ))}
                 </tbody>

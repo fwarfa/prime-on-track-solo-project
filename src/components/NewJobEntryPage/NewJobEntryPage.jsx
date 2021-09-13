@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 function NewJobEntryPage() {
+    const jobHuntInfo = useSelector(store => store.jobHunt);
     const dispatch = useDispatch();
-    const history = useHistory();
+    const history = useHistory(); 
+    // let hundId = jobHuntInfo[jobHuntInfo.length -1].id;
+
+    useEffect(() => {
+        dispatch({
+            type: 'FETCH_JOB_HUNT'
+        });
+        // console.log('job hunt', jobHuntInfo);
+    }, [])
 
     let job = {
         huntTitle: '',
@@ -17,27 +26,40 @@ function NewJobEntryPage() {
         contactName: '',
         contactEmail: '',
         contactNumber: '',
+        jobHuntId: ''
     };
 
-    const [appDetails, setApplDetails] = useState(job);
+    const [appDetails, setAppDetails] = useState(job);
 
     const handleChange = (event) =>{
-        setApplDetails({...appDetails, [event.target.name]:event.target.value })
+        setAppDetails({...appDetails, [event.target.name]:event.target.value })
       };
 
     const handleCancel = () => {
         history.push('/home');
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        console.log('appDetails', appDetails);
+    const handleTest = () => {
+        console.log('job hunt reducer', jobHuntInfo);
+    }
 
+    
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        let jobstuff = appDetails;
+        if (jobHuntInfo.length > 0 && jobHuntInfo[jobHuntInfo.length -1].end_date === null) {
+            
+            console.log('**** test ****', jobHuntInfo[jobHuntInfo.length -1].id);
+            // not working as is now
+           jobstuff = {...appDetails, jobHuntId: jobHuntInfo[jobHuntInfo.length -1].id};
+        }
+        console.log('jobstuff ', jobstuff);
         dispatch({
             type: 'ADD_JOB_DETAILS',
-            payload: appDetails
+            payload: jobstuff
         });
-        // setApplDetails(job);
+        // setAppDetails(job);
         history.push('/dashboard')
     }
 
@@ -45,12 +67,14 @@ function NewJobEntryPage() {
         <div>
             <h1>Job Entry</h1>
             <form onSubmit={handleSubmit}>
+                {(( jobHuntInfo.length === 0 || jobHuntInfo[jobHuntInfo.length -1].end_date !== null)) &&
                 <div className="mb-3">
                     <label htmlFor="titleOfJobHunt" className="form-label">Title Of New Job Hunt</label>
                     <input name="huntTitle" type="text" className="form-control" placeholder="Position Desired" onChange={handleChange} value={appDetails.huntTitle}/>
                 </div>
+                } 
                 <div className="mb-3">
-                    <label htmlFor="jobEntryFields" className="form-label">Add Position Applied</label>
+                    <label onClick={handleTest} htmlFor="jobEntryFields" className="form-label">Add Position Applied</label>
                     <input name="company" type="text" className="form-control" placeholder="company" onChange={handleChange} value={appDetails.company}/>
                     <input name="applicationUrl" type="text" className="form-control" placeholder="application url" onChange={handleChange} value={appDetails.applicationUrl}/>
                     <input name="position" type="text" className="form-control" placeholder="position titile" onChange={handleChange} value={appDetails.position}/>

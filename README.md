@@ -189,22 +189,22 @@ Setup
   [x] create local state to capture values
   [x] send local state object as payload to saga
   [x] build saga generator function (post)
-  [] set up put function that makes 
+  [x] set up put function that makes 
         get saga function call
         and rerenders data on dashboard
   [x] build post end point in router to insert data to db table
   [] add additional job button
     [] button should have collapse functionality
     [] button should show another set of inputs to add job
-  [] cancel button that takes you to home page
-  [] submit button 
+  [x] cancel button that takes you to home page
+  [x] submit button 
     [x] submit will initiate dipatch function
-    [] submit should take you to dashboard page
+    [x] submit should take you to dashboard page
 
 [] Dashboard Page
   [] create table to hold all current jobs
-    [] map through data for each job item
-      [] display in table
+    [x] map through data for each job item
+      [x] display in table
       [] each job item should include an edit button icon
         [] edit button will take you edit job page and display job clicked(by id/key)
         [] edit button will initiate a dispatch

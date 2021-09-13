@@ -20,6 +20,19 @@ router.get('/details', (req, res) => {
     })
 });
 
+router.get('/details/:id', (req, res) => {
+  const id = req.params.id
+  const query = `SELECT * FROM job_details WHERE id = $1`;
+  pool.query(query, [id])
+    .then( result => {
+      res.send(result.rows);
+    })
+    .catch(err => {
+      console.log('Get Job Details with ID failed', err);
+      res.sendStatus(500)
+    })
+});
+
 router.get('/hunt', (req, res) => {
   const query = `SELECT * FROM job_hunt`;
   pool.query(query)
@@ -112,6 +125,21 @@ router.post('/details', (req, res) => {
 });
 
 router.delete('/details/:id', (req, res) => {
+  let id = [req.params.id];
+  console.log('id is ', id);
+  
+  const query = `DELETE FROM job_details WHERE id = $1`;
+  pool.query(query, id)
+    .then( result => {
+      res.sendStatus(200);
+    })
+    .catch(err => {
+      console.log('Job Details GET failed', err);
+      res.sendStatus(500)
+    })
+});
+
+router.put('/details/:id', (req, res) => {
   let id = [req.params.id];
   console.log('id is ', id);
   

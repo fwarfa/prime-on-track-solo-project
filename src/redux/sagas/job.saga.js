@@ -40,10 +40,39 @@ function* deleteJobDetails(action) {
   }
 }
 
+function* fetchEditDetails(action) {
+  try {
+    let response = yield axios.get(`/api/job/details/${action.payload}`);
+
+    yield put({
+      type: 'SET_JOB',
+      payload: response.data
+    })
+  } catch (error) {
+    
+  }
+}
+
+function* updateJobDetails(action) {
+  try {
+    let response = yield axios.put(`/api/job/details/${action.payload.id}`);
+
+    yield put({
+      type: 'SET_JOB',
+      payload: response.data
+    })
+  } catch (error) {
+    
+  }
+}
+
 function* jobSaga() {
   yield takeLatest('ADD_JOB_DETAILS', addJobDetails);
   yield takeLatest('FETCH_JOB_DETAILS', fetchJobDetails);
   yield takeLatest('DELETE_JOB_DETAILS', deleteJobDetails)
+  yield takeLatest('FETCH_EDIT_DETAILS', fetchEditDetails);
+  yield takeLatest('UPDATE_JOB_DETAILS', updateJobDetails)
+
 }
 
 export default jobSaga;

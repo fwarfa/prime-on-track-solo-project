@@ -12,9 +12,17 @@ function DashboardPage() {
     }, [])
 
     const handleDelete = (id) => {
-        console.log('just clicked: ', id);
+        console.log('delete clicked for: ', id);
         dispatch({
             type: 'DELETE_JOB_DETAILS',
+            payload: id
+        })
+    }
+
+    const handleEdit = (id) => {
+        console.log('edit clicked for: ', id);
+        dispatch({
+            type: 'FETCH_EDIT_DETAILS',
             payload: id
         })
     }
@@ -44,7 +52,7 @@ function DashboardPage() {
                     {jobDetailInfo.map(job => (
                         <tr key={job.id}>
                             <th scope="row">{job.id}</th>
-                            <td><button>edit</button></td>
+                            <td><button onClick={() => handleEdit(job.id)}>edit</button></td>
                             <td>{job.company_name}</td>
                             <td>{job.contact_name}</td>
                             <td>{job.contact_phone_number}</td>

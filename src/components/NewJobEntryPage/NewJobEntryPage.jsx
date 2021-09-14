@@ -95,8 +95,10 @@ function NewJobEntryPage() {
                     <select name="interviewStage" className="form-select" aria-label="Interview Status" onChange={handleChange} value={appDetails.interviewStage}>
                         <option selected>Interview Status</option>
                         <option value="Pending">Pending</option>
-                        <option value="Reviewed">Reviewed</option>
-                        <option value="Rejected">Rejected</option>
+                        <option value="Round 1">Round 1</option>
+                        <option value="Round 2">Round 2</option>
+                        <option value="Round 3">Round 3</option>
+                        <option value="Final Round">Final Round</option>
                     </select>
                     <div className="form-check form-switch">
                         <input name="offer" className="form-check-input" type="checkbox" id="offerSwitch" onClick={handleToggle} value={appDetails.offer}/>

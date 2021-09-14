@@ -33,6 +33,25 @@ router.get('/details/:id', (req, res) => {
     })
 });
 
+router.get('/totals', (req, res) => {
+  const query = `
+    SELECT
+      (SELECT COUNT(id) FROM "job_details") AS "applied",
+      (SELECT COUNT(id) FROM "job_details" WHERE "interview_stage" != 'Pending') AS "interviewed",
+      (SELECT COUNT(id) FROM "job_details" WHERE "application_status" = 'Rejected') AS "rejected",
+      (SELECT COUNT(id) FROM "job_details" WHERE "offer" = true) AS "offered";
+    `;
+  pool.query(query)
+    .then( result => {
+      console.log('RESULTS', result.rows[0]);
+      res.send(result.rows[0]);
+    })
+    .catch(err => {
+      console.log('Job Details Totals GET failed', err);
+      res.sendStatus(500)
+    })
+});
+
 router.get('/hunt', (req, res) => {
   const query = `SELECT * FROM job_hunt`;
   pool.query(query)

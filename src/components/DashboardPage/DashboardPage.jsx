@@ -5,11 +5,15 @@ import { useHistory } from 'react-router-dom';
 function DashboardPage() {
     const dispatch = useDispatch();
     const jobDetailInfo = useSelector(store => store.jobDetails);
+    const totals = useSelector(store => store.jobTotals);
     const history = useHistory();
 
     useEffect(() => {
         dispatch({
             type: 'FETCH_JOB_DETAILS'
+        });
+        dispatch({
+            type: 'FETCH_TOTALS'
         });
     }, [])
 
@@ -50,9 +54,9 @@ function DashboardPage() {
         history.push('/editJobEntry');
     }
 
-    const handleModalOkay = () => {
-        history.push('/home');
-    }
+    // const handleModalOkay = () => {
+    //     history.push('/home');
+    // }
 
     const onAddJob = () => {
         history.push('/newJobEntry');
@@ -81,32 +85,32 @@ function DashboardPage() {
                     </tr>
                 </thead>
                 <tbody>
-                    {jobDetailInfo.map((job, index) => (
-                        <tr key={index}>
-                            <th scope="row">{index + 1}</th>
-                            <td><button onClick={() => handleEdit(job.id)}>edit</button></td>
-                            <td>{job.company_name}</td>
-                            <td>{job.contact_name}</td>
-                            <td>{job.contact_phone_number}</td>
-                            <td>{job.contact_email}</td>
-                            <td>{job.application_url}</td>
-                            <td>{job.position_title}</td>
-                            <td>{job.application_status}</td>
-                            <td>{job.interview_stage}</td>
-                            <td>{job.offer ? <p>yes</p> : <p>no</p>}</td>
-                            <td>{job.offer_accepted ? <p>yes</p> : <p>no</p>}</td>
-                            <td><button onClick={() => handleDelete(job.id)}>delete</button></td>   
-                        </tr>
-                    ))}
+                {jobDetailInfo.map((job, index) => (
+                    <tr key={index}>
+                        <th scope="row">{index + 1}</th>
+                        <td><button onClick={() => handleEdit(job.id)}>edit</button></td>
+                        <td>{job.company_name}</td>
+                        <td>{job.contact_name}</td>
+                        <td>{job.contact_phone_number}</td>
+                        <td>{job.contact_email}</td>
+                        <td>{job.application_url}</td>
+                        <td>{job.position_title}</td>
+                        <td>{job.application_status}</td>
+                        <td>{job.interview_stage}</td>
+                        <td>{job.offer ? <p>yes</p> : <p>no</p>}</td>
+                        <td>{job.offer_accepted ? <p>yes</p> : <p>no</p>}</td>
+                        <td><button onClick={() => handleDelete(job.id)}>delete</button></td>   
+                    </tr>
+                ))}
                 </tbody>
             </table>
             <div>
                 <p>Progress Tracker</p>
                 <ul>
-                    <li>Total Applied: </li>
-                    <li>Total Interviews: </li>
-                    <li>Total Rejections: </li>
-                    <li>Total Offers: </li>
+                    <li>Total Applied: {totals.applied}</li>
+                    <li>Total Interviews: {totals.interviewed}</li>
+                    <li>Total Rejections: {totals.rejected}</li>
+                    <li>Total Offers: {totals.offered}</li>
                 </ul>
             </div>
         </div>

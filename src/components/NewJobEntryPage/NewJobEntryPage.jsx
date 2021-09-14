@@ -12,7 +12,6 @@ function NewJobEntryPage() {
         dispatch({
             type: 'FETCH_JOB_HUNT'
         });
-        // console.log('job hunt', jobHuntInfo);
     }, [])
 
     let job = {
@@ -23,6 +22,7 @@ function NewJobEntryPage() {
         appStatus: '',
         interviewStage: '',
         offer: false,
+        offerAccepted: false,
         contactName: '',
         contactEmail: '',
         contactNumber: '',
@@ -30,36 +30,44 @@ function NewJobEntryPage() {
     };
 
     const [appDetails, setAppDetails] = useState(job);
+    const [offer, setOffer] = useState(false);
+    const [offerAccepted, setOfferAccepted] = useState(false);
 
     const handleChange = (event) =>{
         setAppDetails({...appDetails, [event.target.name]:event.target.value })
       };
 
+    const handleToggle = () => {
+        setOffer(!offer);
+        if (offer === false) {
+            console.log('helllooo');
+            setOfferAccepted(false);
+        }
+    }
+
+    const handleAccepted = () => {
+        setOfferAccepted(!offerAccepted);
+    }
+
     const handleCancel = () => {
         history.push('/home');
     }
 
-    const handleTest = () => {
-        console.log('job hunt reducer', jobHuntInfo);
-    }
-
-    
-
     const handleSubmit = (event) => {
         event.preventDefault();
-        let jobstuff = appDetails;
+        let jobApp = appDetails;
         if (jobHuntInfo.length > 0 && jobHuntInfo[jobHuntInfo.length -1].end_date === null) {
-            
             console.log('**** test ****', jobHuntInfo[jobHuntInfo.length -1].id);
             // not working as is now
-           jobstuff = {...appDetails, jobHuntId: jobHuntInfo[jobHuntInfo.length -1].id};
+           jobApp = {...appDetails, jobHuntId: jobHuntInfo[jobHuntInfo.length -1].id};
         }
-        console.log('jobstuff ', jobstuff);
+        jobApp = {...appDetails, offer: offer, offerAccepted: offerAccepted};
+        console.log('jobApp ', jobApp);
         dispatch({
             type: 'ADD_JOB_DETAILS',
-            payload: jobstuff
+            payload: jobApp
         });
-        // setAppDetails(job);
+        setAppDetails(job);
         history.push('/dashboard')
     }
 
@@ -74,7 +82,7 @@ function NewJobEntryPage() {
                 </div>
                 } 
                 <div className="mb-3">
-                    <label onClick={handleTest} htmlFor="jobEntryFields" className="form-label">Add Position Applied</label>
+                    <label htmlFor="jobEntryFields" className="form-label">Add Position Applied</label>
                     <input name="company" type="text" className="form-control" placeholder="company" onChange={handleChange} value={appDetails.company}/>
                     <input name="applicationUrl" type="text" className="form-control" placeholder="application url" onChange={handleChange} value={appDetails.applicationUrl}/>
                     <input name="position" type="text" className="form-control" placeholder="position titile" onChange={handleChange} value={appDetails.position}/>
@@ -91,9 +99,15 @@ function NewJobEntryPage() {
                         <option value="Rejected">Rejected</option>
                     </select>
                     <div className="form-check form-switch">
-                        <input name="offer" className="form-check-input" type="checkbox" id="offerSwitch" onChange={handleChange} value={appDetails.offer}/>
+                        <input name="offer" className="form-check-input" type="checkbox" id="offerSwitch" onClick={handleToggle} value={appDetails.offer}/>
                         <label className="form-check-label" htmlFor="offerSwitch">Offer Received</label>
                     </div>
+                    {offer && 
+                    <div className="form-check form-switch">
+                        <input name="offerAccepted" className="form-check-input" type="checkbox" id="offerSwitch" onClick={handleAccepted} value={appDetails.offerAccepted}/>
+                        <label className="form-check-label" htmlFor="offerSwitch">Offer Accepted?</label>
+                    </div>
+                    }
                     <input name="contactName" type="text" className="form-control" placeholder="contact name" onChange={handleChange} value={appDetails.contactName}/>
                     <input name="contactEmail" type="email" className="form-control" placeholder="contact email" onChange={handleChange} value={appDetails.contactEmail}/>
                     <input name="contactNumber" type="text" className="form-control" placeholder="contact phone #" onChange={handleChange} value={appDetails.contactNumber}/>

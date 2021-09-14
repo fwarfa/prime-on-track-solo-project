@@ -2,23 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-function JobEntry() {
-    const jobHuntInfo = useSelector(store => store.jobHunt);
+function EditJobEntry() {
     const jobDetail = useSelector(store => store.jobDetail);
     const dispatch = useDispatch();
-    const history = useHistory(); 
-
-    // useEffect(() => {
-    //     dispatch({
-    //         type: 'FETCH_JOB_HUNT'
-    //     });
-    //     dispatch({
-    //         type: 'FETCH_JOB_DETAILS'
-    //     });
-    //     dispatch({
-    //         type: 'EDIT_JOB_DETAILS'
-    //     });
-    // }, [])
+    const history = useHistory();
 
     let job = {
         company: jobDetail.company,
@@ -44,18 +31,9 @@ function JobEntry() {
         history.push('/home');
     }
 
-    const testing = () => {
-        console.log('jobDetail is ', jobDetail);
-    }
-
-    const app = () => {
-        console.log('editDetails is ', editDetails);
-    }
-
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log('new edit details: ', editDetails);
-
         dispatch({
             type: 'UPDATE_JOB_DETAILS',
             payload: editDetails
@@ -65,10 +43,10 @@ function JobEntry() {
 
     return (
         <div>
-        <h1 onClick={testing}>Edit Job Entry</h1>
+        <h1>Edit Job Entry</h1>
         <form onSubmit={handleSubmit}>
             <div className="mb-3">
-                <label onClick={app} htmlFor="jobEntryFields" className="form-label">Add Position Applied</label>
+                <label htmlFor="jobEntryFields" className="form-label">Add Position Applied</label>
                 <input name="company" type="text" className="form-control" placeholder="company" onChange={handleChange} value={editDetails.company}/>
                 <input name="applicationUrl" type="text" className="form-control" placeholder="Application Url" onChange={handleChange} value={editDetails.applicationUrl}/>
                 <input name="position" type="text" className="form-control" placeholder="position" onChange={handleChange} value={editDetails.position}/>
@@ -99,4 +77,4 @@ function JobEntry() {
     )
 }
 
-export default JobEntry
+export default EditJobEntry

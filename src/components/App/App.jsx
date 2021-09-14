@@ -23,7 +23,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import HomePage from '../HomePage/HomePage';
 import NewJobEntryPage from '../NewJobEntryPage/NewJobEntryPage';
 import DashboardPage from '../DashboardPage/DashboardPage';
-import JobEntry from '../JobEntry/JobEntry';
+import EditJobEntry from '../EditJobEntry/EditJobEntry';
 
 
 import './App.css';
@@ -89,9 +89,9 @@ function App() {
 
           <ProtectedRoute
             exact
-            path="/jobEntry"
+            path="/editJobEntry"
           >
-            <JobEntry />
+            <EditJobEntry />
           </ProtectedRoute>
 
           <Route

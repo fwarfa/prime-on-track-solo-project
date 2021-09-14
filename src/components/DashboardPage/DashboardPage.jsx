@@ -22,10 +22,6 @@ function DashboardPage() {
     }
 
     const handleEdit = (id) => {
-        // dispatch({
-        //     type: 'CLEAR_JOB'
-        // });
-
         let jobToEdit;
         for (let job of jobDetailInfo) {
             if (job.id === id) {
@@ -46,13 +42,16 @@ function DashboardPage() {
         }
 
         console.log('job to edit ', jobToEdit);
-
         dispatch({
             type: 'SET_JOB',
             payload: jobToEdit
         });
-        history.push('/jobEntry');
-        
+
+        history.push('/editJobEntry');
+    }
+
+    const handleModalOkay = () => {
+        history.push('/home');
     }
 
     const onAddJob = () => {
@@ -101,8 +100,41 @@ function DashboardPage() {
                     ))}
                 </tbody>
             </table>
+            <div>
+                <p>Progress Tracker</p>
+                <ul>
+                    <li>Total Applied: </li>
+                    <li>Total Interviews: </li>
+                    <li>Total Rejections: </li>
+                    <li>Total Offers: </li>
+                </ul>
+            </div>
         </div>
     )
 }
+
+/*
+job.offer_accepted && 
+    <div className="modal" tabindex="-1" role="dialog">
+        <div className="modal-dialog" role="document">
+            <div className="modal-content">
+            <div className="modal-header">
+                <h5 className="modal-title">Job Search Complete!</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div className="modal-body">
+                <p>Congradulations On Your New Role!</p>
+                <p>Click 'Okay' To Go To The Home Page</p>
+            </div>
+            <div className="modal-footer">
+                <button onClick={handleModalOkay} type="button" className="btn btn-primary">Okay</button>
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+    </div>
+*/
 
 export default DashboardPage

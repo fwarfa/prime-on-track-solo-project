@@ -21,8 +21,8 @@ function NewJobEntryPage() {
         position: '',
         appStatus: '',
         interviewStage: '',
-        offer: false,
-        offerAccepted: false,
+        // offer: false,
+        // offerAccepted: false,
         contactName: '',
         contactEmail: '',
         contactNumber: '',
@@ -56,18 +56,19 @@ function NewJobEntryPage() {
     const handleSubmit = (event) => {
         event.preventDefault();
         let jobApp = appDetails;
+        jobApp = {...appDetails, offer: offer, offerAccepted: offerAccepted};
+        console.log('jobApp before', jobApp);
         if (jobHuntInfo.length > 0 && jobHuntInfo[jobHuntInfo.length -1].end_date === null) {
             console.log('**** test ****', jobHuntInfo[jobHuntInfo.length -1].id);
             // not working as is now
-           jobApp = {...appDetails, jobHuntId: jobHuntInfo[jobHuntInfo.length -1].id};
+           jobApp = {...jobApp, jobHuntId: jobHuntInfo[jobHuntInfo.length -1].id};
         }
-        jobApp = {...appDetails, offer: offer, offerAccepted: offerAccepted};
-        console.log('jobApp ', jobApp);
+       
+        console.log('jobApp after', jobApp);
         dispatch({
             type: 'ADD_JOB_DETAILS',
             payload: jobApp
         });
-        setAppDetails(job);
         history.push('/dashboard')
     }
 

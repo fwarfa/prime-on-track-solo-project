@@ -35,12 +35,10 @@ function NewJobEntryPage() {
 
     let openHunt;
     if (jobHuntInfo.length > 0) {
-        console.log('this was hit');
         for (let hunt of jobHuntInfo) {
-            openHunt = hunt;
             if (hunt.end_date === null) {
+                openHunt = hunt;
                 appDetails.jobHuntId = hunt.id;
-                console.log('jobHuntId is ', appDetails.jobHuntId);
             }
         }
     }

@@ -76,6 +76,7 @@ router.post('/details', (req, res) => {
     const appStatus = req.body.appStatus;
     const interviewStage = req.body.interviewStage;
     const offer = req.body.offer;
+    const offerAccepted = req.body.offerAccepted;
     const contactName = req.body.contactName;
     const contactEmail = req.body.contactEmail;
     const contactNumber = req.body.contactNumber;
@@ -96,10 +97,10 @@ router.post('/details', (req, res) => {
       const insertJobDetailQuery = `
         INSERT INTO "job_details" 
             (company_name, application_url, position_title, application_status, 
-            interview_stage, contact_name, contact_email, contact_phone_number, offer, user_id, job_hunt_id)
+            interview_stage, contact_name, contact_email, contact_phone_number, offer, offer_accepted, user_id, job_hunt_id)
         VALUES 
-            ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`;
-      pool.query(insertJobDetailQuery, [company, applicationUrl, position, appStatus, interviewStage, contactName, contactEmail, contactNumber, offer, userId, jobHuntId])
+            ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`;
+      pool.query(insertJobDetailQuery, [company, applicationUrl, position, appStatus, interviewStage, contactName, contactEmail, contactNumber, offer, offerAccepted, userId, jobHuntId])
         .then(result => {
           console.log('this was hit yay');
           

@@ -16,9 +16,18 @@ function* fetchJobHunt() {
   }
 }
 
+function* endJobHunt(action) {
+  try {
+    yield axios.put(`/api/job/hunt/${action.payload}`);
+  } catch (error) {
+    console.log('END JOB HUNT ERROR ', error)
+  }
+}
+
 function* jobHuntSaga() {
 //   yield takeLatest('ADD_JOB_DETAILS', addJobHunt);
   yield takeLatest('FETCH_JOB_HUNT', fetchJobHunt);
+  yield takeLatest('END_JOB_HUNT', endJobHunt);
 }
 
 export default jobHuntSaga;

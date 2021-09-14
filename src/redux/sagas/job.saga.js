@@ -65,13 +65,26 @@ function* updateJobDetails(action) {
   }
 }
 
+function* fetchTotals() {
+  try {
+    let response = yield axios.get(`/api/job/totals`);
+
+    yield put({
+      type: 'SET_TOTALS',
+      payload: response.data
+    })
+  } catch (error) {
+    console.log('FETCH TOTALS ERROR ', error)
+  }
+}
+
 function* jobSaga() {
   yield takeLatest('ADD_JOB_DETAILS', addJobDetails);
   yield takeLatest('FETCH_JOB_DETAILS', fetchJobDetails);
   yield takeLatest('DELETE_JOB_DETAILS', deleteJobDetails)
   yield takeLatest('FETCH_EDIT_DETAILS', fetchEditDetails);
-  yield takeLatest('UPDATE_JOB_DETAILS', updateJobDetails)
-
+  yield takeLatest('UPDATE_JOB_DETAILS', updateJobDetails);
+  yield takeLatest('FETCH_TOTALS', fetchTotals); 
 }
 
 export default jobSaga;

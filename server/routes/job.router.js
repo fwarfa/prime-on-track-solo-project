@@ -144,16 +144,36 @@ router.post('/details', (req, res) => {
 });
 
 router.delete('/details/:id', (req, res) => {
-  let id = [req.params.id];
+  let id = req.params.id;
   console.log('id is ', id);
   
   const query = `DELETE FROM job_details WHERE id = $1`;
-  pool.query(query, id)
+  pool.query(query, [id])
     .then( result => {
       res.sendStatus(200);
     })
     .catch(err => {
       console.log('Job Details GET failed', err);
+      res.sendStatus(500)
+    })
+});
+
+router.put('/hunt/:id', (req,res) => {
+  let id = req.params.id;
+  console.log('id is ', id);
+  
+  const query = `
+  UPDATE "job_hunt"
+  SET 
+    end_date = CURRENT_DATE
+  WHERE id = $1;
+  `;
+  pool.query(query, [id])
+    .then( result => {
+      res.sendStatus(200);
+    })
+    .catch(err => {
+      console.log('Job Hunt PUT failed', err);
       res.sendStatus(500)
     })
 });
@@ -165,6 +185,7 @@ router.put('/details', (req, res) => {
   const appStatus = req.body.appStatus;
   const interviewStage = req.body.interviewStage;
   const offer = req.body.offer;
+  const offerAccepted = req.body.offerAccepted;
   const contactName = req.body.contactName;
   const contactEmail = req.body.contactEmail;
   const contactNumber = req.body.contactNumber;
@@ -185,11 +206,12 @@ router.put('/details', (req, res) => {
       contact_email = $7,
       contact_phone_number = $8,
       offer = $9,
-      user_id = $10,
-      job_hunt_id = $11
-    WHERE id = $12;
+      offer_accepted = $10,
+      user_id = $11,
+      job_hunt_id = $12
+    WHERE id = $13;
     `;
-  pool.query(query, [company, applicationUrl, position, appStatus, interviewStage, contactName, contactEmail, contactNumber, offer, userId, jobHuntId, id])
+  pool.query(query, [company, applicationUrl, position, appStatus, interviewStage, contactName, contactEmail, contactNumber, offer, offerAccepted, userId, jobHuntId, id])
     .then( result => {
       res.send(result.rows);
     })

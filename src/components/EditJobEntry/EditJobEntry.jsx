@@ -14,6 +14,7 @@ function EditJobEntry() {
         appStatus: jobDetail.appStatus,
         interviewStage: jobDetail.interviewStage,
         offer: jobDetail.offer,
+        offerAccepted: jobDetail.offerAccepted,
         contactName: jobDetail.contactName,
         contactEmail: jobDetail.contactEmail,
         contactNumber: jobDetail.contactNumber,
@@ -22,23 +23,43 @@ function EditJobEntry() {
     };
 
     const [editDetails, setEditDetails] = useState(job);
+    const [offer, setOffer] = useState(false);
+    const [offerAccepted, setOfferAccepted] = useState(false);
 
     const handleChange = (event) =>{
         setEditDetails({...editDetails, [event.target.name]:event.target.value })
       };
 
+      const handleToggle = () => {
+        setOffer(!offer);
+        if (offer === false) {
+            setOfferAccepted(false);
+        }
+    }
+
+    const handleAccepted = () => {
+        setOfferAccepted(!offerAccepted);
+    }
+    
+
     const handleCancel = () => {
         history.push('/home');
     }
 
+    const test = () => {
+        console.log('editDetails', editedJob);
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log('new edit details: ', editDetails);
+        let editedJob = editDetails;
+        editedJob = {...editedJob, offer: offer, offerAccepted: offerAccepted};
+        console.log('new edit job: ', editedJob);
         dispatch({
             type: 'UPDATE_JOB_DETAILS',
-            payload: editDetails
+            payload: editedJob
         });
-        history.push('/dashboard')
+        history.push('/dashboard');
     }
 
     return (
@@ -59,13 +80,21 @@ function EditJobEntry() {
                 <select name="interviewStage" className="form-select" aria-label="Interview Status" onChange={handleChange} value={editDetails.interviewStage}>
                     <option selected>Interview Stage</option>
                     <option value="Pending">Pending</option>
-                    <option value="Reviewed">Reviewed</option>
-                    <option value="Rejected">Rejected</option>
+                    <option value="Round 1">Round 1</option>
+                    <option value="Round 2">Round 2</option>
+                    <option value="Round 3">Round 3</option>
+                    <option value="Final Round">Final Round</option>
                 </select>
                 <div className="form-check form-switch">
-                    <input name="offer" className="form-check-input" type="checkbox" id="offerSwitch" onChange={handleChange} value={editDetails.offer}/>
+                    <input name="offer" className="form-check-input" type="checkbox" id="offerSwitch" onClick={handleToggle} value={editDetails.offer} />
                     <label className="form-check-label" htmlFor="offerSwitch">Offer Received</label>
                 </div>
+                {offer && 
+                    <div className="form-check form-switch">
+                        <input name="offerAccepted" className="form-check-input" type="checkbox" id="offerSwitch" onClick={handleAccepted} value={editDetails.offerAccepted}/>
+                        <label className="form-check-label" htmlFor="offerSwitch">Offer Accepted?</label>
+                    </div>
+                    }
                 <input name="contactName" type="text" className="form-control" placeholder="contact name" onChange={handleChange} value={editDetails.contactName}/>
                 <input name="contactEmail" type="text" className="form-control" placeholder="contact email" onChange={handleChange} value={editDetails.contactEmail}/>
                 <input name="contactNumber" type="text" className="form-control" placeholder="contact phone number" onChange={handleChange} value={editDetails.contactNumber}/>

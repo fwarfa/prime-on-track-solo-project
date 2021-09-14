@@ -21,8 +21,8 @@ function NewJobEntryPage() {
         position: '',
         appStatus: '',
         interviewStage: '',
-        // offer: false,
-        // offerAccepted: false,
+        offer: false,
+        offerAccepted: false,
         contactName: '',
         contactEmail: '',
         contactNumber: '',
@@ -32,6 +32,18 @@ function NewJobEntryPage() {
     const [appDetails, setAppDetails] = useState(job);
     const [offer, setOffer] = useState(false);
     const [offerAccepted, setOfferAccepted] = useState(false);
+
+    let openHunt;
+    if (jobHuntInfo.length > 0) {
+        console.log('this was hit');
+        for (let hunt of jobHuntInfo) {
+            openHunt = hunt;
+            if (hunt.end_date === null) {
+                appDetails.jobHuntId = hunt.id;
+                console.log('jobHuntId is ', appDetails.jobHuntId);
+            }
+        }
+    }
 
     const handleChange = (event) =>{
         setAppDetails({...appDetails, [event.target.name]:event.target.value })
@@ -55,16 +67,10 @@ function NewJobEntryPage() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
         let jobApp = appDetails;
         jobApp = {...appDetails, offer: offer, offerAccepted: offerAccepted};
-        console.log('jobApp before', jobApp);
-        if (jobHuntInfo.length > 0 && jobHuntInfo[jobHuntInfo.length -1].end_date === null) {
-            console.log('**** test ****', jobHuntInfo[jobHuntInfo.length -1].id);
-            // not working as is now
-           jobApp = {...jobApp, jobHuntId: jobHuntInfo[jobHuntInfo.length -1].id};
-        }
-       
-        console.log('jobApp after', jobApp);
+        console.log('jobApp before submit', jobApp);
         dispatch({
             type: 'ADD_JOB_DETAILS',
             payload: jobApp
@@ -76,7 +82,7 @@ function NewJobEntryPage() {
         <div>
             <h1>Job Entry</h1>
             <form onSubmit={handleSubmit}>
-                {(( jobHuntInfo.length === 0 || jobHuntInfo[jobHuntInfo.length -1].end_date !== null)) &&
+                {(( jobHuntInfo.length === 0 || openHunt.end_date !== null)) &&
                 <div className="mb-3">
                     <label htmlFor="titleOfJobHunt" className="form-label">Title Of New Job Hunt</label>
                     <input name="huntTitle" type="text" className="form-control" placeholder="Position Desired" onChange={handleChange} value={appDetails.huntTitle}/>
@@ -84,7 +90,7 @@ function NewJobEntryPage() {
                 } 
                 <div className="mb-3">
                     <label htmlFor="jobEntryFields" className="form-label">Add Position Applied</label>
-                    <input name="company" type="text" className="form-control" placeholder="company" onChange={handleChange} value={appDetails.company}/>
+                    <input name="company" type="text" className="form-control" placeholder="company" onChange={handleChange} value={appDetails.company} />
                     <input name="applicationUrl" type="text" className="form-control" placeholder="application url" onChange={handleChange} value={appDetails.applicationUrl}/>
                     <input name="position" type="text" className="form-control" placeholder="position titile" onChange={handleChange} value={appDetails.position}/>
                     <select name="appStatus" className="form-select" aria-label="Application Status" onChange={handleChange} value={appDetails.appStatus}>

@@ -84,8 +84,7 @@ function* jobSaga() {
   yield takeLatest('DELETE_JOB_DETAILS', deleteJobDetails)
   yield takeLatest('FETCH_EDIT_DETAILS', fetchEditDetails);
   yield takeLatest('UPDATE_JOB_DETAILS', updateJobDetails);
-  yield takeLatest('FETCH_TOTALS', fetchTotals);
-
+  yield takeLatest('FETCH_TOTALS', fetchTotals); 
 }
 
 export default jobSaga;

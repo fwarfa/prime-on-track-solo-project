@@ -8,6 +8,20 @@ function DashboardPage() {
     const totals = useSelector(store => store.jobTotals);
     const history = useHistory();
 
+    
+    let isOfferAccepted= false;
+    for (let job of jobDetailInfo) {
+        if (job.offer_accepted === true) {
+            isOfferAccepted = true;
+            let id = job.job_hunt_id;
+            console.log('jobs been found for' , id);
+            dispatch({
+                type: 'END_JOB_HUNT',
+                payload: id
+            })
+        }
+    }
+
     useEffect(() => {
         dispatch({
             type: 'FETCH_JOB_DETAILS'
@@ -54,9 +68,13 @@ function DashboardPage() {
         history.push('/editJobEntry');
     }
 
-    // const handleModalOkay = () => {
-    //     history.push('/home');
-    // }
+    const handleModalOkay = () => {
+        history.push('/home');
+    }
+
+    const test = () => {
+        console.log('isOfferAccepted', isOfferAccepted);
+    }
 
     const onAddJob = () => {
         history.push('/newJobEntry');
@@ -64,8 +82,15 @@ function DashboardPage() {
 
     return (
         <div>
-            <h4>Dashboard</h4>
+            <h4 onClick={test}>Dashboard</h4>
             <button onClick={onAddJob}>Add Additional Job</button>
+
+            { isOfferAccepted && 
+            <h1>Congradulations!</h1>
+            }
+
+            
+
             <table className="table table-striped">
                 <thead>
                     <tr>
@@ -101,6 +126,7 @@ function DashboardPage() {
                         <td>{job.offer_accepted ? <p>yes</p> : <p>no</p>}</td>
                         <td><button onClick={() => handleDelete(job.id)}>delete</button></td>   
                     </tr>
+
                 ))}
                 </tbody>
             </table>
@@ -116,29 +142,5 @@ function DashboardPage() {
         </div>
     )
 }
-
-/*
-job.offer_accepted && 
-    <div className="modal" tabindex="-1" role="dialog">
-        <div className="modal-dialog" role="document">
-            <div className="modal-content">
-            <div className="modal-header">
-                <h5 className="modal-title">Job Search Complete!</h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div className="modal-body">
-                <p>Congradulations On Your New Role!</p>
-                <p>Click 'Okay' To Go To The Home Page</p>
-            </div>
-            <div className="modal-footer">
-                <button onClick={handleModalOkay} type="button" className="btn btn-primary">Okay</button>
-                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-            </div>
-        </div>
-    </div>
-*/
 
 export default DashboardPage

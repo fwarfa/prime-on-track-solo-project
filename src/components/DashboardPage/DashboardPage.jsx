@@ -1,41 +1,45 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+import { Doughnut } from 'react-chartjs-2';
 
 function DashboardPage() {
     const dispatch = useDispatch();
+    const params = useParams();
     const jobDetailInfo = useSelector(store => store.jobDetails);
     const totals = useSelector(store => store.jobTotals);
     const history = useHistory();
 
     
-    let isOfferAccepted= false;
-    for (let job of jobDetailInfo) {
-        if (job.offer_accepted === true) {
-            isOfferAccepted = true;
-            let id = job.job_hunt_id;
-            console.log('jobs been found for' , id);
-            dispatch({
-                type: 'END_JOB_HUNT',
-                payload: id
-            })
-        }
-    }
+    let isOfferAccepted;
+    // for (let job of jobDetailInfo) {
+    //     if (job.offer_accepted === true) {
+    //         isOfferAccepted = true;
+    //         let id = job.job_hunt_id;
+    //         console.log('jobs been found for' , id);
+    //         dispatch({
+    //             type: 'END_JOB_HUNT',
+    //             payload: id
+    //         })
+    //     }
+    // }
 
     useEffect(() => {
         dispatch({
-            type: 'FETCH_JOB_DETAILS'
+            type: 'FETCH_JOB_DETAILS',
+            payload: params.id
         });
         dispatch({
-            type: 'FETCH_TOTALS'
+            type: 'FETCH_TOTALS',
+            payload: params.id
         });
-    }, [])
+    }, [dispatch])
 
-    const handleDelete = (id) => {
-        console.log('delete clicked for: ', id);
+    const handleDelete = (job) => {
+        console.log('delete clicked for: ', job.id, job.job_hunt_id);
         dispatch({
             type: 'DELETE_JOB_DETAILS',
-            payload: id
+            payload: job.id
         })
     }
 
@@ -68,28 +72,30 @@ function DashboardPage() {
         history.push('/editJobEntry');
     }
 
-    const handleModalOkay = () => {
-        history.push('/home');
-    }
-
-    const test = () => {
-        console.log('isOfferAccepted', isOfferAccepted);
-    }
-
     const onAddJob = () => {
+        history.push('/newJobEntry');
+    }
+
+    const onStartHunt = () => {
         history.push('/newJobEntry');
     }
 
     return (
         <div>
-            <h4 onClick={test}>Dashboard</h4>
+        { params.id === "undefined" ? 
+            <div>
+            <h3>You haven't started a Job Hunt Yet!</h3>
+            <h5>Click on the button below to start a new job hunt</h5>
+            <button onClick={onStartHunt}>Start A New Job Hunt</button>
+            </div>
+            :
+        <div>
+            <h4>Dashboard</h4>
             <button onClick={onAddJob}>Add Additional Job</button>
 
             { isOfferAccepted && 
             <h1>Congradulations!</h1>
             }
-
-            
 
             <table className="table table-striped">
                 <thead>
@@ -124,22 +130,48 @@ function DashboardPage() {
                         <td>{job.interview_stage}</td>
                         <td>{job.offer ? <p>yes</p> : <p>no</p>}</td>
                         <td>{job.offer_accepted ? <p>yes</p> : <p>no</p>}</td>
-                        <td><button onClick={() => handleDelete(job.id)}>delete</button></td>   
+                        <td><button onClick={() => handleDelete(job)}>delete</button></td>   
                     </tr>
 
                 ))}
                 </tbody>
             </table>
-            <div>
+            <div id="doughnut">
                 <p>Progress Tracker</p>
-                <ul>
-                    <li>Total Applied: {totals.applied}</li>
-                    <li>Total Interviews: {totals.interviewed}</li>
-                    <li>Total Rejections: {totals.rejected}</li>
-                    <li>Total Offers: {totals.offered}</li>
-                </ul>
+                <Doughnut 
+                    data={{
+                        labels: ['Total Applications', 'Total Interviews', 'Total Rejections', 'Total Offers'],
+                        datasets: [{
+                                data: [totals.applied, totals.interviewed, totals.rejected, totals.offered],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                    }}
+                    option={{
+                        responsive: false,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }}
+                />
             </div>
         </div>
+    }
+    </div>
     )
 }
 

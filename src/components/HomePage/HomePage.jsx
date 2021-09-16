@@ -1,11 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 
-
 function HomePage() {
     const history = useHistory();
+    const dispatch = useDispatch();
     const user = useSelector(store => store.user);
+    const jobHuntInfo = useSelector(store => store.jobHunt);
+
+    useEffect(() => {
+        dispatch({
+            type: 'FETCH_JOB_HUNT'
+        });
+    }, [])
+
+    let openHunt;
+    if (jobHuntInfo.length > 0) {
+        for (let hunt of jobHuntInfo) {
+            if (hunt.end_date === null) {
+                console.log('this was hit');
+                openHunt = hunt;
+            }
+        }
+    }
 
     const onNewJobHunt = () => {
         history.push('/newJobEntry')
@@ -13,6 +30,11 @@ function HomePage() {
 
     const onEditProfile = () => {
         history.push('/profile')
+    }
+
+    const onViewClick = (huntId) => {
+        console.log('hunt id is', huntId);
+        history.push(`/dashboard/${huntId}`)
     }
 
 
@@ -30,12 +52,17 @@ function HomePage() {
             <br />
             <button onClick={onNewJobHunt}>New Job Hunt</button>
             <h2>Job Hunt History</h2>
-            <ul>
-                <li>IT ANALYST</li>
-                <li>SOFTWARE ENGINEER</li>
-                <li>PATIENT ACCESS REP</li>
-                <li>PACKAGER</li>
-            </ul>
+            { jobHuntInfo.some(hunt => hunt.end_date !== null) ?
+                jobHuntInfo.filter(hunt => hunt.end_date !== null).map((hunt) => (
+                    <ul key={hunt.id}>
+                        <li>{hunt.job_hunt_title}</li>
+                        <li>{hunt.end_date}</li>
+                        <li><button onClick={() => onViewClick(hunt.id)}>view</button></li>
+                    </ul>
+                ))
+                :
+                <p>You Have No Previous Job Hunts</p>
+            } 
         </div>
     )
 }

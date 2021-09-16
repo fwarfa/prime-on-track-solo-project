@@ -4,8 +4,19 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 
-function Nav() {
+function Nav({jobHuntInfo}) {
   const user = useSelector((store) => store.user);
+
+   let currentJobHuntId = undefined;
+    if (jobHuntInfo.length > 0) {
+      for (let hunt of jobHuntInfo) {
+        if (hunt.end_date === null) {
+            currentJobHuntId = hunt.id
+        }
+        console.log('currentJobHuntId ', currentJobHuntId);
+        break;
+      }
+    }
 
   return (
     <div className="nav">
@@ -32,7 +43,7 @@ function Nav() {
               Profile
             </Link>
 
-            <Link className="navLink" to="/dashboard">
+            <Link className="navLink" to={`/dashboard/${currentJobHuntId}`}>
               Dashboard
             </Link>
 

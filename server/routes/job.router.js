@@ -7,20 +7,27 @@ const pool = require('../modules/pool');
 // const userStrategy = require('../strategies/user.strategy');
 
 const router = express.Router();
-
-router.get('/details', (req, res) => {
-  const query = `SELECT * FROM job_details`;
-  pool.query(query)
+// FETCH_JOB_DETAILS
+router.get('/jobsByHunt/:id', (req, res) => {
+  let huntId = req.params.id;
+  const query = `
+    SELECT * 
+    FROM job_details
+    WHERE job_hunt_id = $1;
+  `;
+  pool.query(query, [huntId])
     .then( result => {
+      console.log('results by hunt id is ', result.rows);
       res.send(result.rows);
     })
     .catch(err => {
-      console.log('Job Details GET failed', err);
+      console.log('Job Details by hunt GET failed', err);
       res.sendStatus(500)
     })
 });
 
-router.get('/details/:id', (req, res) => {
+// FETCH_EDIT_DETAILS
+router.get('/jobDetails/:id', (req, res) => {
   const id = req.params.id
   const query = `SELECT * FROM job_details WHERE id = $1`;
   pool.query(query, [id])
@@ -33,15 +40,24 @@ router.get('/details/:id', (req, res) => {
     })
 });
 
-router.get('/totals', (req, res) => {
+// FETCH_TOTALS
+router.get('/totals/:id', (req, res) => {
+  let huntId = req.params.id
   const query = `
-    SELECT
-      (SELECT COUNT(id) FROM "job_details") AS "applied",
-      (SELECT COUNT(id) FROM "job_details" WHERE "interview_stage" != 'Pending') AS "interviewed",
-      (SELECT COUNT(id) FROM "job_details" WHERE "application_status" = 'Rejected') AS "rejected",
-      (SELECT COUNT(id) FROM "job_details" WHERE "offer" = true) AS "offered";
+  SELECT
+  (SELECT COUNT(job_details.id) FROM "job_details" JOIN job_hunt ON job_hunt.id = job_details.job_hunt_id 
+    WHERE job_hunt.id = $1) AS "applied",
+    
+  (SELECT COUNT(job_details.id) FROM "job_details" JOIN job_hunt ON job_hunt.id = job_details.job_hunt_id 
+    WHERE job_hunt.id = $1 AND job_details."interview_stage" != 'Pending') AS "interviewed",
+    
+  (SELECT COUNT(job_details.id) FROM "job_details" JOIN job_hunt ON job_hunt.id = job_details.job_hunt_id 
+    WHERE job_hunt.id = $1 AND job_details."application_status" = 'Rejected') AS "rejected",
+    
+  (SELECT COUNT(job_details.id) FROM "job_details" JOIN job_hunt ON job_hunt.id = job_details.job_hunt_id 
+    WHERE job_hunt.id = $1 AND job_details."offer" = true) AS "offered";
     `;
-  pool.query(query)
+  pool.query(query, [huntId])
     .then( result => {
       console.log('RESULTS', result.rows[0]);
       res.send(result.rows[0]);
@@ -52,7 +68,8 @@ router.get('/totals', (req, res) => {
     })
 });
 
-router.get('/hunt', (req, res) => {
+// FETCH_JOB_HUNT
+router.get('/getHunt', (req, res) => {
   const query = `SELECT * FROM job_hunt`;
   pool.query(query)
     .then( result => {
@@ -64,10 +81,8 @@ router.get('/hunt', (req, res) => {
     })
 });
 
-// Handles POST request with new user data
-// The only thing different from this and every other post we've seen
-// is that the password gets encrypted before being inserted
-router.post('/details', (req, res) => {
+// ADD_JOB_DETAILS
+router.post('/addDetails', (req, res) => {
     console.log('user id is ', req.user.id);
 
     const company = req.body.company;
@@ -76,6 +91,7 @@ router.post('/details', (req, res) => {
     const appStatus = req.body.appStatus;
     const interviewStage = req.body.interviewStage;
     const offer = req.body.offer;
+    const offerAccepted = req.body.offerAccepted;
     const contactName = req.body.contactName;
     const contactEmail = req.body.contactEmail;
     const contactNumber = req.body.contactNumber;
@@ -91,19 +107,18 @@ router.post('/details', (req, res) => {
     if (req.body.jobHuntId) {
       // SKIP 1ST QUERY 
       const jobHuntId = req.body.jobHuntId;
-      console.log('this is cool');
-      
       const insertJobDetailQuery = `
         INSERT INTO "job_details" 
             (company_name, application_url, position_title, application_status, 
-            interview_stage, contact_name, contact_email, contact_phone_number, offer, user_id, job_hunt_id)
+            interview_stage, contact_name, contact_email, contact_phone_number, offer, offer_accepted, user_id, job_hunt_id)
         VALUES 
-            ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`;
-      pool.query(insertJobDetailQuery, [company, applicationUrl, position, appStatus, interviewStage, contactName, contactEmail, contactNumber, offer, userId, jobHuntId])
+            ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+        RETURNING job_hunt_id;
+        `;
+      pool.query(insertJobDetailQuery, [company, applicationUrl, position, appStatus, interviewStage, contactName, contactEmail, contactNumber, offer, offerAccepted, userId, jobHuntId])
         .then(result => {
-          console.log('this was hit yay');
-          
-            res.sendStatus(201);
+            res.send(result.rows[0].job_hunt_id);
+            // res.sendStatus(200);
         }).catch(err => {
           // catch for second query
           console.log('Job Details POST failed: ',err);
@@ -126,12 +141,15 @@ router.post('/details', (req, res) => {
             const insertJobDetailQuery = `
               INSERT INTO "job_details" 
                   (company_name, application_url, position_title, application_status, 
-                  interview_stage, contact_name, contact_email, contact_phone_number, offer, user_id, job_hunt_id)
+                  interview_stage, contact_name, contact_email, contact_phone_number, offer, offer_accepted, user_id, job_hunt_id)
               VALUES 
-                  ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`;
-            pool.query(insertJobDetailQuery, [company, applicationUrl, position, appStatus, interviewStage, contactName, contactEmail, contactNumber, offer, userId, createJobDetailId])
+                  ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+              RETURNING job_hunt_id;
+               `;
+            pool.query(insertJobDetailQuery, [company, applicationUrl, position, appStatus, interviewStage, contactName, contactEmail, contactNumber, offer, offerAccepted, userId, createJobDetailId])
               .then(result => {
-                  res.sendStatus(201);
+                // res.sendStatus(200);
+                res.send(result.rows[0].job_hunt_id);
               }).catch(err => {
                 // catch for second query
                 console.log('Job Details POST failed: ',err);
@@ -143,22 +161,26 @@ router.post('/details', (req, res) => {
         })
 });
 
-router.delete('/details/:id', (req, res) => {
+// DELETE_JOB_DETAILS
+router.delete('/deleteDetails/:id', (req, res) => {
   let id = req.params.id;
   console.log('id is ', id);
   
-  const query = `DELETE FROM job_details WHERE id = $1`;
+  const query = `
+  DELETE FROM job_details WHERE id = $1`;
   pool.query(query, [id])
     .then( result => {
-      res.sendStatus(200);
+      // res.sendStatus(200);
+      res.send(result.rows[0].job_hunt_id);
     })
     .catch(err => {
-      console.log('Job Details GET failed', err);
+      console.log('Job Details DELETE failed', err);
       res.sendStatus(500)
     })
 });
 
-router.put('/hunt/:id', (req,res) => {
+// END_JOB_HUNT
+router.put('/endHunt/:id', (req,res) => {
   let id = req.params.id;
   console.log('id is ', id);
   
@@ -178,7 +200,8 @@ router.put('/hunt/:id', (req,res) => {
     })
 });
 
-router.put('/details', (req, res) => {
+// UPDATE_JOB_DETAILS
+router.put('/updateDetails', (req, res) => {
   const company = req.body.company;
   const applicationUrl = req.body.applicationUrl;
   const position = req.body.position;
@@ -192,6 +215,8 @@ router.put('/details', (req, res) => {
   const userId = req.user.id;
   const jobHuntId = req.body.jobHuntId;
   const id = req.body.id;
+  
+  console.log('job id is', id);
   
   
   const query = `
@@ -213,7 +238,7 @@ router.put('/details', (req, res) => {
     `;
   pool.query(query, [company, applicationUrl, position, appStatus, interviewStage, contactName, contactEmail, contactNumber, offer, offerAccepted, userId, jobHuntId, id])
     .then( result => {
-      res.send(result.rows);
+      res.sendStatus(200);
     })
     .catch(err => {
       console.log('Job Details PUT failed', err);

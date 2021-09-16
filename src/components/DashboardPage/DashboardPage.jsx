@@ -12,17 +12,17 @@ function DashboardPage() {
 
     
     let isOfferAccepted;
-    // for (let job of jobDetailInfo) {
-    //     if (job.offer_accepted === true) {
-    //         isOfferAccepted = true;
-    //         let id = job.job_hunt_id;
-    //         console.log('jobs been found for' , id);
-    //         dispatch({
-    //             type: 'END_JOB_HUNT',
-    //             payload: id
-    //         })
-    //     }
-    // }
+    for (let job of jobDetailInfo) {
+        if (job.offer_accepted === true) {
+            isOfferAccepted = true;
+            let id = job.job_hunt_id;
+            console.log('jobs been found for' , id);
+            dispatch({
+                type: 'END_JOB_HUNT',
+                payload: id
+            })
+        }
+    }
 
     useEffect(() => {
         dispatch({

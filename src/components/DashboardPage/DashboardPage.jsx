@@ -33,13 +33,13 @@ function DashboardPage() {
             type: 'FETCH_TOTALS',
             payload: params.id
         });
-    }, [dispatch])
+    }, [])
 
-    const handleDelete = (job) => {
-        console.log('delete clicked for: ', job.id, job.job_hunt_id);
+    const handleDelete = (id) => {
+        console.log('delete clicked for: ', id);
         dispatch({
             type: 'DELETE_JOB_DETAILS',
-            payload: job.id
+            payload: id
         })
     }
 
@@ -130,7 +130,7 @@ function DashboardPage() {
                         <td>{job.interview_stage}</td>
                         <td>{job.offer ? <p>yes</p> : <p>no</p>}</td>
                         <td>{job.offer_accepted ? <p>yes</p> : <p>no</p>}</td>
-                        <td><button onClick={() => handleDelete(job)}>delete</button></td>   
+                        <td><button onClick={() => handleDelete(job.id)}>delete</button></td>   
                     </tr>
 
                 ))}

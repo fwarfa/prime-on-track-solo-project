@@ -33,15 +33,19 @@ function App() {
   const dispatch = useDispatch();
 
   const user = useSelector(store => store.user);
+  const jobHuntInfo = useSelector(store => store.jobHunt);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
+    dispatch({ type: 'FETCH_JOB_HUNT' });
   }, [dispatch]);
 
   return (
     <Router>
       <div>
-        <Nav />
+        <Nav 
+          jobHuntInfo={jobHuntInfo}
+        />
         <Switch>
           <Redirect exact from="/" to="/home" />
           {/* Visiting localhost:3000/about will show the about page. */}
@@ -82,7 +86,7 @@ function App() {
 
           <ProtectedRoute
             exact
-            path="/dashboard"
+            path="/dashboard/:id"
           >
             <DashboardPage />
           </ProtectedRoute>

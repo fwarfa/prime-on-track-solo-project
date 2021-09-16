@@ -47,7 +47,7 @@ function EditJobEntry() {
     }
 
     const test = () => {
-        console.log('editDetails', editedJob);
+        console.log('jobDetail is', jobDetail);
     }
 
     const handleSubmit = (event) => {
@@ -59,12 +59,12 @@ function EditJobEntry() {
             type: 'UPDATE_JOB_DETAILS',
             payload: editedJob
         });
-        history.push('/dashboard');
+        history.push(`/dashboard/${editedJob.jobHuntId}`);
     }
 
     return (
         <div>
-        <h1>Edit Job Entry</h1>
+        <h1 onClick={test}>Edit Job Entry</h1>
         <form onSubmit={handleSubmit}>
             <div className="mb-3">
                 <label htmlFor="jobEntryFields" className="form-label">Add Position Applied</label>

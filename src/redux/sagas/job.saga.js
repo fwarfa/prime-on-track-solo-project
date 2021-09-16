@@ -1,22 +1,24 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-// worker Saga: will be fired on "FETCH_USER" actions
 function* addJobDetails(action) {
   try {
-    yield axios.post('/api/job/details', action.payload);
-    yield put({
-      type: 'FETCH_JOB_DETAILS'
-    });
+    yield axios.post('/api/job/addDetails', action.payload);
+    // console.log('post response is', response.data);
+    
+    // yield put({
+    //   type: 'FETCH_JOB_DETAILS',
+    //   payload: response.data
+    // });
   } catch (error) {
     console.log('job details post request failed', error);
   }
 }
 
-function* fetchJobDetails() {
+function* fetchJobDetails(action) {
   try{
-    const response = yield axios.get('/api/job/details');
-    console.log('response.data is ', response.data);
+    const response = yield axios.get(`/api/job/jobsByHunt/${action.payload}`);
+    console.log('result for jobs by hunt id is ', response.data);
 
     yield put({
       type: 'SET_JOB_DETAILS',
@@ -30,10 +32,11 @@ function* fetchJobDetails() {
 
 function* deleteJobDetails(action) {
   try {
-    yield axios.delete(`/api/job/details/${action.payload}`);
+    const response = yield axios.delete(`/api/job/deleteDetails/${action.payload}`);
 
     yield put({
-      type: 'FETCH_JOB_DETAILS'
+      type: 'FETCH_JOB_DETAILS',
+      payload: response.data
     })
   } catch (error) {
     
@@ -42,7 +45,7 @@ function* deleteJobDetails(action) {
 
 function* fetchEditDetails(action) {
   try {
-    let response = yield axios.get(`/api/job/details/${action.payload}`);
+    let response = yield axios.get(`/api/job/jobDetails/${action.payload}`);
 
     yield put({
       type: 'SET_JOB',
@@ -55,19 +58,20 @@ function* fetchEditDetails(action) {
 
 function* updateJobDetails(action) {
   try {
-    yield axios.put('/api/job/details', action.payload);
+    yield axios.put('/api/job/updateDetails', action.payload);
 
     yield put({
-      type: 'FETCH_JOB_DETAILS'
+      type: 'FETCH_JOB_DETAILS',
+      payload: action.payload.jobHuntId
     })
   } catch (error) {
     console.log('UPDATE JOB ERROR ', error)
   }
 }
 
-function* fetchTotals() {
+function* fetchTotals(action) {
   try {
-    let response = yield axios.get(`/api/job/totals`);
+    let response = yield axios.get(`/api/job/totals/${action.payload}`);
 
     yield put({
       type: 'SET_TOTALS',

@@ -6,12 +6,11 @@ function NewJobEntryPage() {
     const jobHuntInfo = useSelector(store => store.jobHunt);
     const dispatch = useDispatch();
     const history = useHistory(); 
-    // let hundId = jobHuntInfo[jobHuntInfo.length -1].id;
 
     useEffect(() => {
-        dispatch({
-            type: 'FETCH_JOB_HUNT'
-        });
+        // dispatch({
+        //     type: 'FETCH_JOB_HUNT'
+        // });
     }, [])
 
     let job = {
@@ -33,16 +32,19 @@ function NewJobEntryPage() {
     const [offer, setOffer] = useState(false);
     const [offerAccepted, setOfferAccepted] = useState(false);
 
-    let openHunt;
-    if (jobHuntInfo.length > 0) {
-        for (let hunt of jobHuntInfo) {
-            if (hunt.end_date === null) {
-                openHunt = hunt;
-                appDetails.jobHuntId = hunt.id;
-            }
-        }
-    }
-
+    // let openHunt;
+    // if (jobHuntInfo.length > 0) {
+    //     for (let hunt of jobHuntInfo) {
+    //         openHunt = hunt;
+    //         if (hunt.end_date === null) {
+    //             openHunt = hunt;
+    //             appDetails.jobHuntId = hunt.id;
+    //             // I want to stop the loop if it's null
+    //             // but when I use return the page stops working
+    //         }
+    //     }
+    // }
+    // console.log('openHunt', openHunt);
     const handleChange = (event) =>{
         setAppDetails({...appDetails, [event.target.name]:event.target.value })
       };
@@ -50,7 +52,6 @@ function NewJobEntryPage() {
     const handleToggle = () => {
         setOffer(!offer);
         if (offer === false) {
-            console.log('helllooo');
             setOfferAccepted(false);
         }
     }
@@ -67,20 +68,35 @@ function NewJobEntryPage() {
         event.preventDefault();
 
         let jobApp = appDetails;
-        jobApp = {...appDetails, offer: offer, offerAccepted: offerAccepted};
-        console.log('jobApp before submit', jobApp);
-        dispatch({
-            type: 'ADD_JOB_DETAILS',
-            payload: jobApp
-        });
-        history.push('/dashboard')
+        if (jobHuntInfo.length > 0) {
+            if (jobHuntInfo[0].end_date === null) {
+                jobApp = {...appDetails, offer: offer, offerAccepted: offerAccepted, jobHuntId: jobHuntInfo[0].id};
+                console.log('jobApp with hunt id', jobApp);
+                dispatch({
+                    type: 'ADD_JOB_DETAILS',
+                    payload: jobApp
+                });
+                history.push(`/dashboard/${jobApp.jobHuntId}`)
+            }
+        }
+        else {
+            jobApp = {...appDetails, offer: offer, offerAccepted: offerAccepted};
+            console.log('jobApp without hunt id', jobApp);
+            dispatch({
+                type: 'ADD_JOB_DETAILS',
+                payload: jobApp
+            });
+            history.push(`/home`);
+        }
+        
+        
     }
 
     return (
         <div>
             <h1>Job Entry</h1>
             <form onSubmit={handleSubmit}>
-                {(( jobHuntInfo.length === 0 || openHunt.end_date !== null)) &&
+                {(( jobHuntInfo.length === 0 || jobHuntInfo[0].end_date !== null)) &&
                 <div className="mb-3">
                     <label htmlFor="titleOfJobHunt" className="form-label">Title Of New Job Hunt</label>
                     <input name="huntTitle" type="text" className="form-control" placeholder="Position Desired" onChange={handleChange} value={appDetails.huntTitle}/>

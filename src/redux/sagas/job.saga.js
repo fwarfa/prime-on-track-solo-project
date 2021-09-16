@@ -3,13 +3,13 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 function* addJobDetails(action) {
   try {
-    yield axios.post('/api/job/addDetails', action.payload);
-    // console.log('post response is', response.data);
+    const response = yield axios.post('/api/job/addDetails', action.payload);
+    console.log('post response is', response.data);
     
-    // yield put({
-    //   type: 'FETCH_JOB_DETAILS',
-    //   payload: response.data
-    // });
+    yield put({
+      type: 'FETCH_JOB_DETAILS',
+      payload: response.data.jobHuntId
+    });
   } catch (error) {
     console.log('job details post request failed', error);
   }
@@ -36,7 +36,7 @@ function* deleteJobDetails(action) {
 
     yield put({
       type: 'FETCH_JOB_DETAILS',
-      payload: response.data
+      payload: response.data.jobHuntId
     })
   } catch (error) {
     

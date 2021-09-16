@@ -8,7 +8,7 @@ const pool = require('../modules/pool');
 
 const router = express.Router();
 // FETCH_JOB_DETAILS
-router.get('/jobsByHunt/:id', (req, res) => {
+router.get('/jobsByHunt/:id', rejectUnauthenticated, (req, res) => {
   let huntId = req.params.id;
   const query = `
     SELECT * 
@@ -117,7 +117,7 @@ router.post('/addDetails', (req, res) => {
         `;
       pool.query(insertJobDetailQuery, [company, applicationUrl, position, appStatus, interviewStage, contactName, contactEmail, contactNumber, offer, offerAccepted, userId, jobHuntId])
         .then(result => {
-            res.send(result.rows[0].job_hunt_id);
+            res.send({jobHuntId: result.rows[0].job_hunt_id});
             // res.sendStatus(200);
         }).catch(err => {
           // catch for second query
@@ -149,7 +149,7 @@ router.post('/addDetails', (req, res) => {
             pool.query(insertJobDetailQuery, [company, applicationUrl, position, appStatus, interviewStage, contactName, contactEmail, contactNumber, offer, offerAccepted, userId, createJobDetailId])
               .then(result => {
                 // res.sendStatus(200);
-                res.send(result.rows[0].job_hunt_id);
+                res.send({jobHuntId: result.rows[0].job_hunt_id});
               }).catch(err => {
                 // catch for second query
                 console.log('Job Details POST failed: ',err);
@@ -167,11 +167,13 @@ router.delete('/deleteDetails/:id', (req, res) => {
   console.log('id is ', id);
   
   const query = `
-  DELETE FROM job_details WHERE id = $1`;
+  DELETE FROM job_details WHERE id = $1
+  RETURNING "job_hunt_id";
+  `;
   pool.query(query, [id])
     .then( result => {
       // res.sendStatus(200);
-      res.send(result.rows[0].job_hunt_id);
+      res.send({jobHuntId: result.rows[0].job_hunt_id});
     })
     .catch(err => {
       console.log('Job Details DELETE failed', err);

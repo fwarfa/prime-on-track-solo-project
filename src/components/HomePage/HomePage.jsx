@@ -51,7 +51,7 @@ function HomePage() {
             <button onClick={onEditProfile}>Edit Profile</button>
             <br />
             <button onClick={onNewJobHunt}>New Job Hunt</button>
-            <h2>Job Hunt History</h2>
+            <p>Job Hunt History</p>
             { jobHuntInfo.some(hunt => hunt.end_date !== null) ?
                 jobHuntInfo.filter(hunt => hunt.end_date !== null).map((hunt) => (
                     <ul key={hunt.id}>

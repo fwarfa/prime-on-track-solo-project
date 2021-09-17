@@ -94,10 +94,13 @@ function DashboardPage() {
             <button onClick={onAddJob}>Add Additional Job</button>
 
             { isOfferAccepted && 
-            <h1>Congradulations!</h1>
+            <center>
+                <h1>Congratulations!</h1>
+            </center>
+            
             }
 
-            <table className="table table-striped">
+            <table>
                 <thead>
                     <tr>
                         <th>#</th>

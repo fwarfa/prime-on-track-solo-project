@@ -41,7 +41,6 @@ function HomePage() {
     return (
         <div>
             <h1>Home Page!</h1>
-
             <div>
                 <img src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="profile picture" height="100px" width="100px"/> 
             </div>

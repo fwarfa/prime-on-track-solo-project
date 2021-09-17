@@ -66,18 +66,18 @@ function EditJobEntry() {
         <div>
         <h1 onClick={test}>Edit Job Entry</h1>
         <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-                <label htmlFor="jobEntryFields" className="form-label">Add Position Applied</label>
-                <input name="company" type="text" className="form-control" placeholder="company" onChange={handleChange} value={editDetails.company}/>
-                <input name="applicationUrl" type="text" className="form-control" placeholder="Application Url" onChange={handleChange} value={editDetails.applicationUrl}/>
-                <input name="position" type="text" className="form-control" placeholder="position" onChange={handleChange} value={editDetails.position}/>
-                <select name="appStatus" className="form-select" aria-label="Application Status" onChange={handleChange} value={editDetails.appStatus}>
+            <div>
+                <label>Add Position Applied</label>
+                <input name="company" type="text" placeholder="company" onChange={handleChange} value={editDetails.company}/>
+                <input name="applicationUrl" type="text" placeholder="Application Url" onChange={handleChange} value={editDetails.applicationUrl}/>
+                <input name="position" type="text" placeholder="position" onChange={handleChange} value={editDetails.position}/>
+                <select name="appStatus" onChange={handleChange} value={editDetails.appStatus}>
                     <option selected>Application Status</option>
                     <option value="Pending">Pending</option>
                     <option value="Reviewed">Reviewed</option>
                     <option value="Rejected">Rejected</option>
                 </select>
-                <select name="interviewStage" className="form-select" aria-label="Interview Status" onChange={handleChange} value={editDetails.interviewStage}>
+                <select name="interviewStage" onChange={handleChange} value={editDetails.interviewStage}>
                     <option selected>Interview Stage</option>
                     <option value="Pending">Pending</option>
                     <option value="Round 1">Round 1</option>
@@ -85,19 +85,19 @@ function EditJobEntry() {
                     <option value="Round 3">Round 3</option>
                     <option value="Final Round">Final Round</option>
                 </select>
-                <div className="form-check form-switch">
-                    <input name="offer" className="form-check-input" type="checkbox" id="offerSwitch" onClick={handleToggle} value={editDetails.offer} />
-                    <label className="form-check-label" htmlFor="offerSwitch">Offer Received</label>
+                <div>
+                    <input name="offer"type="checkbox" id="offerSwitch" onClick={handleToggle} value={editDetails.offer} />
+                    <label htmlFor="offerSwitch">Offer Received</label>
                 </div>
                 {offer && 
                     <div className="form-check form-switch">
-                        <input name="offerAccepted" className="form-check-input" type="checkbox" id="offerSwitch" onClick={handleAccepted} value={editDetails.offerAccepted}/>
-                        <label className="form-check-label" htmlFor="offerSwitch">Offer Accepted?</label>
+                        <input name="offerAccepted" type="checkbox" id="offerAcceptedSwitch" onClick={handleAccepted} value={editDetails.offerAccepted}/>
+                        <label htmlFor="offerAcceptedSwitch">Offer Accepted?</label>
                     </div>
                     }
-                <input name="contactName" type="text" className="form-control" placeholder="contact name" onChange={handleChange} value={editDetails.contactName}/>
-                <input name="contactEmail" type="text" className="form-control" placeholder="contact email" onChange={handleChange} value={editDetails.contactEmail}/>
-                <input name="contactNumber" type="text" className="form-control" placeholder="contact phone number" onChange={handleChange} value={editDetails.contactNumber}/>
+                <input name="contactName" type="text" placeholder="contact name" onChange={handleChange} value={editDetails.contactName}/>
+                <input name="contactEmail" type="text" placeholder="contact email" onChange={handleChange} value={editDetails.contactEmail}/>
+                <input name="contactNumber" type="text" placeholder="contact phone number" onChange={handleChange} value={editDetails.contactNumber}/>
             </div>
             <button onClick={handleCancel}>Cancel</button>
             <button type="submit">Submit</button>

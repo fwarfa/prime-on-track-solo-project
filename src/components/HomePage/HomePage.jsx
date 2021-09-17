@@ -41,7 +41,6 @@ function HomePage() {
     return (
         <div>
             <h1>Home Page!</h1>
-
             <div>
                 <img src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="profile picture" height="100px" width="100px"/> 
             </div>
@@ -51,7 +50,7 @@ function HomePage() {
             <button onClick={onEditProfile}>Edit Profile</button>
             <br />
             <button onClick={onNewJobHunt}>New Job Hunt</button>
-            <h2>Job Hunt History</h2>
+            <p>Job Hunt History</p>
             { jobHuntInfo.some(hunt => hunt.end_date !== null) ?
                 jobHuntInfo.filter(hunt => hunt.end_date !== null).map((hunt) => (
                     <ul key={hunt.id}>

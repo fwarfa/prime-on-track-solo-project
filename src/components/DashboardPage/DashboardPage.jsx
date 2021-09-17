@@ -94,31 +94,34 @@ function DashboardPage() {
             <button onClick={onAddJob}>Add Additional Job</button>
 
             { isOfferAccepted && 
-            <h1>Congradulations!</h1>
+            <center>
+                <h1>Congratulations!</h1>
+            </center>
+            
             }
 
-            <table className="table table-striped">
+            <table>
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Edit</th>
-                        <th scope="col">Company</th>
-                        <th scope="col">Contact Name</th>
-                        <th scope="col">Contact #</th>
-                        <th scope="col">Contact Email</th>
-                        <th scope="col">Application Link</th>
-                        <th scope="col">Position</th>
-                        <th scope="col">Application Status</th>
-                        <th scope="col">Interview Stage</th>
-                        <th scope="col">Offer</th>
-                        <th scope="col">Offer Taken</th>
-                        <th scope="col">Delete</th>
+                        <th>#</th>
+                        <th>Edit</th>
+                        <th>Company</th>
+                        <th>Contact Name</th>
+                        <th>Contact #</th>
+                        <th>Contact Email</th>
+                        <th>Application Link</th>
+                        <th>Position</th>
+                        <th>Application Status</th>
+                        <th>Interview Stage</th>
+                        <th>Offer</th>
+                        <th>Offer Taken</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
                 {jobDetailInfo.map((job, index) => (
                     <tr key={index}>
-                        <th scope="row">{index + 1}</th>
+                        <th>{index + 1}</th>
                         <td><button onClick={() => handleEdit(job.id)}>edit</button></td>
                         <td>{job.company_name}</td>
                         <td>{job.contact_name}</td>

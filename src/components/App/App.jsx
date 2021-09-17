@@ -153,39 +153,3 @@ function App() {
 }
 
 export default App;
-
-
-{/* <Router>
-<div>
-
-    <nav>
-      <Link to="/home">
-        <p>Home</p>
-      </Link>
-      <Link to="/about">
-        <p>About</p>
-      </Link>
-      <Link to="/user">
-        <p>User</p>
-      </Link>
-      <Link to="/user">
-        <p>Login</p>
-      </Link>
-    </nav>
-    <header>
-      <h1>On-Track Solo Project</h1>
-    </header>
-
-
-    
-    <Route exact path="/user">
-      <UserPage />
-    </Route>
-    <Route exact path="/about">
-      <AboutPage />
-    </Route>
-    <Route exact path="/hi">
-
-    </Route>
-</div>
-</Router> */}

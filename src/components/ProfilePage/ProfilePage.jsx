@@ -26,7 +26,8 @@ function ProfilePage() {
     history.push('/home');
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     console.log('form submitted');
   }
 
@@ -37,16 +38,14 @@ function ProfilePage() {
       <img src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="profile picture" height="100px" width="100px"/>
     </div>
     <p>
-      <a className="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+      <a className="btn btn-primary" data-bs-toggle="collapse" href="#" role="button" aria-expanded="false" aria-controls="collapseExample">
         Change Profile Picture
       </a>
     </p>
-    <div class="collapse" id="collapseExample">
-      <div class="card card-body">
+    <div class="collapse">
         <div class="input-group">
           <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" />
         </div>
-      </div>
     </div>
     <div>{user.first_name} {user.last_name}</div>
     <div>Bio: {user.bio}</div>

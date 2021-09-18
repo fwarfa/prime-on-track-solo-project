@@ -10,6 +10,39 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
+import { styled } from '@mui/material/styles';
+import Badge from '@mui/material/Badge';
+import Avatar from '@mui/material/Avatar';
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+    '& .MuiBadge-badge': {
+      backgroundColor: '#44b700',
+      color: '#44b700',
+      boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+      '&::after': {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        borderRadius: '50%',
+        animation: 'ripple 1.2s infinite ease-in-out',
+        border: '1px solid currentColor',
+        content: '""',
+      },
+    },
+    '@keyframes ripple': {
+      '0%': {
+        transform: 'scale(.8)',
+        opacity: 1,
+      },
+      '100%': {
+        transform: 'scale(2.4)',
+        opacity: 0,
+      },
+    },
+  }));
+
 
 import {
     Button,
@@ -61,9 +94,13 @@ function HomePage() {
     return (
         <div>
             <Typography variant="h4">Home Page!</Typography>
-            <div>
-                <img src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="profile picture" height="100px" width="100px"/> 
-            </div>
+            <StyledBadge
+                overlap="circular"
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                variant="dot"
+            >
+                <Avatar sx={{ width: 75, height: 75 }} alt="Profile Picture" src="public/images/LINKPROF.png" />
+            </StyledBadge>
             <Typography>{user.first_name} {user.last_name}</Typography>
             <Typography>Bio: {user.bio}</Typography>
             <Typography>{user.email}</Typography>

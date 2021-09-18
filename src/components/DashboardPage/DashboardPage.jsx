@@ -9,6 +9,11 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+import Box from '@mui/material/Box';
 
 import {
     Button,
@@ -27,6 +32,11 @@ function DashboardPage() {
     const jobDetailInfo = useSelector(store => store.jobDetails);
     const totals = useSelector(store => store.jobTotals);
     const history = useHistory();
+    const [value, setValue] = React.useState('1');
+
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
 
     
     let isOfferAccepted;
@@ -108,7 +118,19 @@ function DashboardPage() {
             </div>
             :
             <div>
-            <h4>Dashboard</h4>
+            <center>
+            <Typography variant="h4">Dashboard</Typography>
+            </center>
+            <Box sx={{ width: '100%' }}>
+            <TabContext value={value}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <TabList variant="fullWidth" onChange={handleChange} aria-label="lab API tabs example">
+                <Tab value="1" label="Job Board" />
+                <Tab value="2" label="Progress Tracker" />
+            </TabList>
+            </Box>
+            <TabPanel value="1">
+            <Typography variant="h5">Job Board</Typography>
             <Button className="btn" variant="contained" size="small" onClick={onAddJob}>Add Additional Job</Button>
 
             { isOfferAccepted && 
@@ -162,8 +184,10 @@ function DashboardPage() {
                     </TableBody>
                 </Table>
             </TableContainer>
+            </TabPanel>
+            <TabPanel value="2">
             <div id="doughnut">
-                <p>Progress Tracker</p>
+            <Typography variant="h5">Progress Tracker</Typography>
                 <Doughnut 
                     data={{
                         labels: ['Total Applications', 'Total Interviews', 'Total Rejections', 'Total Offers'],
@@ -195,6 +219,9 @@ function DashboardPage() {
                     }}
                 />
             </div>
+            </TabPanel>
+            </TabContext>
+            </Box>
         </div>
     }
     </div>

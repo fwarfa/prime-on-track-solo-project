@@ -1,6 +1,43 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+
+// import { makeStyles } from '@material-ui/core/styles';
+// import Avatar from '@material-ui/core/Avatar';
+// import Badge from '@material-ui/core/Badge';
+
+// import { styled } from '@mui/material/styles';
+// import Badge from '@mui/material/Badge';
+// import Avatar from '@mui/material/Avatar';
+
+// const StyledBadge = styled(Badge)(({ theme }) => ({
+//   '& .MuiBadge-badge': {
+//     backgroundColor: '#44b700',
+//     color: '#44b700',
+//     boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+//     '&::after': {
+//       position: 'absolute',
+//       top: 0,
+//       left: 0,
+//       width: '100%',
+//       height: '100%',
+//       borderRadius: '50%',
+//       animation: 'ripple 1.2s infinite ease-in-out',
+//       border: '1px solid currentColor',
+//       content: '""',
+//     },
+//   },
+//   '@keyframes ripple': {
+//     '0%': {
+//       transform: 'scale(.8)',
+//       opacity: 1,
+//     },
+//     '100%': {
+//       transform: 'scale(2.4)',
+//       opacity: 0,
+//     },
+//   },
+// }));
 
 
 function ProfilePage() {
@@ -18,10 +55,6 @@ function ProfilePage() {
   }
   const [profileUpdate, setProfileUpdate] = useState(profileObject);
 
-  // const handleChange = () => {
-    
-  // }
-
   const handleCancel = () => {
     history.push('/home');
   }
@@ -34,9 +67,15 @@ function ProfilePage() {
   return (
     <div>
     <h3>Profile Page</h3>
-    <div>
-      <img src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="profile picture" height="100px" width="100px"/>
-    </div>
+
+    {/* <StyledBadge
+      overlap="circular"
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      variant="dot"
+    >
+      <Avatar alt="Farah" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" />
+    </StyledBadge> */}
+    
     <a href="#">Change Profile Picture</a>
     <div >
       <input type="file"/>

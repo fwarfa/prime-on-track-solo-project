@@ -3,6 +3,24 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom';
 import { Doughnut } from 'react-chartjs-2';
 
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+
+import {
+    Button,
+    TextField,
+    Grid,
+    Paper,
+    AppBar,
+    Typography,
+    Toolbar,
+    Link,
+    } from "@material-ui/core";
+
 function DashboardPage() {
     const dispatch = useDispatch();
     const params = useParams();
@@ -89,9 +107,9 @@ function DashboardPage() {
             <button onClick={onStartHunt}>Start A New Job Hunt</button>
             </div>
             :
-        <div>
+            <div>
             <h4>Dashboard</h4>
-            <button onClick={onAddJob}>Add Additional Job</button>
+            <Button className="btn" variant="contained" size="small" onClick={onAddJob}>Add Additional Job</Button>
 
             { isOfferAccepted && 
             <center>
@@ -100,45 +118,50 @@ function DashboardPage() {
             
             }
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Edit</th>
-                        <th>Company</th>
-                        <th>Contact Name</th>
-                        <th>Contact #</th>
-                        <th>Contact Email</th>
-                        <th>Application Link</th>
-                        <th>Position</th>
-                        <th>Application Status</th>
-                        <th>Interview Stage</th>
-                        <th>Offer</th>
-                        <th>Offer Taken</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <TableContainer>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                                <TableCell>#</TableCell>
+                                <TableCell align="right">Edit</TableCell>
+                                <TableCell align="right">Company</TableCell>
+                                <TableCell align="right">Contact Name</TableCell>
+                                <TableCell align="right">Contact #</TableCell>
+                                <TableCell align="right">Contact Email</TableCell>
+                                <TableCell align="right">Application Link</TableCell>
+                                <TableCell align="right">Position</TableCell>
+                                <TableCell align="right">Application Status</TableCell>
+                                <TableCell align="right">Interview Stage</TableCell>
+                                <TableCell align="right">Offer</TableCell>
+                                <TableCell align="right">Offer Taken</TableCell>
+                                <TableCell align="right">Delete</TableCell>
+                            </TableRow>
+                    </TableHead>
+                    <TableBody>
                 {jobDetailInfo.map((job, index) => (
-                    <tr key={index}>
-                        <th>{index + 1}</th>
-                        <td><button onClick={() => handleEdit(job.id)}>edit</button></td>
-                        <td>{job.company_name}</td>
-                        <td>{job.contact_name}</td>
-                        <td>{job.contact_phone_number}</td>
-                        <td>{job.contact_email}</td>
-                        <td>{job.application_url}</td>
-                        <td>{job.position_title}</td>
-                        <td>{job.application_status}</td>
-                        <td>{job.interview_stage}</td>
-                        <td>{job.offer ? <p>yes</p> : <p>no</p>}</td>
-                        <td>{job.offer_accepted ? <p>yes</p> : <p>no</p>}</td>
-                        <td><button onClick={() => handleDelete(job.id)}>delete</button></td>   
-                    </tr>
+                    <TableRow 
+                        key={index}
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                        <TableCell component="th" scope="row">{index + 1}</TableCell>
+                        <TableCell align="right"><Button className="btn" variant="contained" size="small" onClick={() => handleEdit(job.id)}>edit</Button></TableCell>
+                        <TableCell align="right">{job.company_name}</TableCell>
+                        <TableCell align="right">{job.contact_name}</TableCell>
+                        <TableCell align="right">{job.contact_phone_number}</TableCell>
+                        <TableCell align="right">{job.contact_email}</TableCell>
+                        <TableCell align="right">{job.application_url}</TableCell>
+                        <TableCell align="right">{job.position_title}</TableCell>
+                        <TableCell align="right">{job.application_status}</TableCell>
+                        <TableCell align="right">{job.interview_stage}</TableCell>
+                        <TableCell align="right">{job.offer ? <p>yes</p> : <p>no</p>}</TableCell>
+                        <TableCell align="right">{job.offer_accepted ? <p>yes</p> : <p>no</p>}</TableCell>
+                        <TableCell align="right"><Button className="btn" variant="contained" size="small" onClick={() => handleDelete(job.id)}>delete</Button></TableCell>  
+                    </TableRow>
 
                 ))}
-                </tbody>
-            </table>
+                    </TableBody>
+                </Table>
+            </TableContainer>
             <div id="doughnut">
                 <p>Progress Tracker</p>
                 <Doughnut 

@@ -200,8 +200,8 @@ function NewJobEntryPage() {
                                 <input name="contactEmail" type="email" placeholder="contact email" onChange={handleChange} value={appDetails.contactEmail}/>
                                 <input name="contactNumber" type="text" placeholder="contact phone #" onChange={handleChange} value={appDetails.contactNumber}/> */}
                             </div>
-                            <Button onClick={handleCancel}>Cancel</Button>
-                            <Button type="submit">Submit</Button>
+                            <Button style={{marginRight: 10}} variant="contained" size="small" onClick={handleCancel}>Cancel</Button>
+                            <Button style={{marginRight: 10}} variant="contained" size="small" type="submit">Submit</Button>
                         </form>
                     </Grid>
                     </center>

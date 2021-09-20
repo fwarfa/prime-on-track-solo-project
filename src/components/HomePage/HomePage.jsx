@@ -88,7 +88,7 @@ function HomePage() {
         <div>
             <Grid container spacing={2}>
                 <Grid item xs={12} md={12}>
-                    <Typography variant="h4">Home Page!</Typography>
+                    <Typography style={{marginLeft: 30, padding: 10}}variant="h4">Home Page!</Typography>
                 </Grid>
 
                 <Grid item xs={12} md={3}>

@@ -73,7 +73,7 @@ function ProfilePage() {
 
   return (
     <div>
-    <Typography>Profile Page</Typography>
+    <Typography variant="h4">Profile Page</Typography>
 
     {/* <StyledBadge
       overlap="circular"
@@ -83,10 +83,8 @@ function ProfilePage() {
       <Avatar alt="Farah" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" />
     </StyledBadge> */}
     
-    <a href="#">Change Profile Picture</a>
-    <div >
-      <input type="file"/>
-    </div>
+    <Button style={{marginRight: 10}} variant="contained" size="small" >Change Profile Picture</Button>
+    <br />
     <div>{user.first_name} {user.last_name}</div>
     <div>Bio: {user.bio}</div>
     <div>{user.email}</div>
@@ -154,8 +152,8 @@ function ProfilePage() {
           size="small" 
           type="password"
           />
-      <Button onClick={handleCancel}type="button">Cancel</Button>
-      <Button type="submit">Save</Button>
+      <Button style={{marginRight: 10}} variant="contained" size="small" onClick={handleCancel}type="button">Cancel</Button>
+      <Button style={{marginRight: 10}} variant="contained" size="small" type="submit">Save</Button>
     </form>
     </div>
   );

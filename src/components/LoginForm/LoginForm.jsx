@@ -94,7 +94,7 @@ function LoginForm() {
               />
           </div>
           <div>
-            <Button className="btn" type="submit" name="submit" variant="contained" size="small">Login In</Button>
+            <Button style={{marginRight: 10}}  type="submit" name="submit" variant="contained" size="small">Login In</Button>
           </div>
           <div>
             <Button

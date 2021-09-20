@@ -2,7 +2,9 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom';
 import { Doughnut } from 'react-chartjs-2';
+import './DashboardPage.css'
 
+import Typography from '@mui/material/Typography';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -21,7 +23,6 @@ import {
     Grid,
     Paper,
     AppBar,
-    Typography,
     Toolbar,
     Link,
     } from "@material-ui/core";

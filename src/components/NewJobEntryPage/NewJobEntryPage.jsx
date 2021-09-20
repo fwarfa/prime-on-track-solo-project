@@ -2,6 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+
 function NewJobEntryPage() {
     const jobHuntInfo = useSelector(store => store.jobHunt);
     const dispatch = useDispatch();
@@ -102,30 +111,71 @@ function NewJobEntryPage() {
                     <input name="huntTitle" type="text" placeholder="Position Desired" onChange={handleChange} value={appDetails.huntTitle}/>
                 </div>
                 } 
-                <div className="mb-3">
+                <div>
                     <label>Add Position Applied</label>
-                    <input name="company" type="text" placeholder="company" onChange={handleChange} value={appDetails.company} />
-                    <input name="applicationUrl" type="text" placeholder="application url" onChange={handleChange} value={appDetails.applicationUrl}/>
+                    <TextField fullWidth name="company" label="company" variant="outlined" size="small" placeholder="company" onChange={handleChange} value={appDetails.company}/>
+                    <TextField fullWidth name="applicationUrl" label="application url" variant="outlined" size="small" placeholder="application url" onChange={handleChange} value={appDetails.applicationUrl}/>
+                    <TextField fullWidth name="position" label="position titile" variant="outlined" size="small" placeholder="position titile" onChange={handleChange} value={appDetails.position}/>
+                    
+                    <InputLabel>Application Status</InputLabel>
+                    <Select
+                        name="appStatus"
+                        value={appDetails.appStatus}
+                        label="Application Status"
+                        onChange={handleChange}
+                    >
+                        <MenuItem value="Pending">Pending</MenuItem>
+                        <MenuItem value="Reviewed">Reviewed</MenuItem>
+                        <MenuItem value="Rejected">Rejected</MenuItem>
+                    </Select>
+
+                    <InputLabel>Interview Stage</InputLabel>
+                    <Select
+                        name="interviewStage"
+                        value={appDetails.interviewStage}
+                        label="Interview Stage"
+                        onChange={handleChange}
+                    >
+                        <MenuItem value="Pending">Pending</MenuItem>
+                        <MenuItem value="Round 1">Round 1</MenuItem>
+                        <MenuItem value="Round 2">Round 2</MenuItem>
+                        <MenuItem value="Round 3">Round 3</MenuItem>
+                        <MenuItem value="Final Round">Final Round</MenuItem>
+                    </Select>
+
+                    <FormGroup>
+                        <FormControlLabel name="offer" control={<Switch />} label="Offer Received" onClick={handleToggle} value={appDetails.offer}/>
+                        {offer && 
+                        <FormControlLabel name="offerAccepted" control={<Switch />} label="Offer Accepted?" onClick={handleAccepted} value={appDetails.offerAccepted}/>
+                        }
+                    </FormGroup>
+
+                    <TextField fullWidth name="contactName" label="contact name" variant="outlined" size="small" onChange={handleChange} value={appDetails.contactName}/>
+                    <TextField fullWidth name="contactEmail" label="contact email" variant="outlined" size="small" onChange={handleChange} value={appDetails.contactEmail}/>
+                    <TextField fullWidth name="contactNumber" label="contact phone number" variant="outlined" size="small" onChange={handleChange} value={appDetails.contactNumber}/>
+                    
+                    {/* <input name="company" type="text" placeholder="company" onChange={handleChange} value={appDetails.company} /> */}
+                    {/* <input name="applicationUrl" placeholder="application url" onChange={handleChange} value={appDetails.applicationUrl} type="text"/>
                     <input name="position" type="text" placeholder="position titile" onChange={handleChange} value={appDetails.position}/>
                     <select name="appStatus" onChange={handleChange} value={appDetails.appStatus}>
                         <option selected>Application Status</option>
                         <option value="Pending">Pending</option>
                         <option value="Reviewed">Reviewed</option>
                         <option value="Rejected">Rejected</option>
-                    </select>
-                    <select name="interviewStage" onChange={handleChange} value={appDetails.interviewStage}>
+                    </select> */}
+                    {/* <select name="interviewStage" onChange={handleChange} value={appDetails.interviewStage}>
                         <option selected>Interview Status</option>
                         <option value="Pending">Pending</option>
                         <option value="Round 1">Round 1</option>
                         <option value="Round 2">Round 2</option>
                         <option value="Round 3">Round 3</option>
                         <option value="Final Round">Final Round</option>
-                    </select>
-                    <div>
+                    </select> */}
+                    {/* <div>
                         <input name="offer" type="checkbox" id="offerSwitch" onClick={handleToggle} value={appDetails.offer}/>
                         <label htmlFor="offerSwitch">Offer Received</label>
-                    </div>
-                    {offer && 
+                    </div> */}
+                    {/* {offer && 
                     <div>
                         <input name="offerAccepted" type="checkbox" id="offerAcceptedSwitch" onClick={handleAccepted} value={appDetails.offerAccepted}/>
                         <label htmlFor="offerAcceptedSwitch">Offer Accepted?</label>
@@ -133,10 +183,10 @@ function NewJobEntryPage() {
                     }
                     <input name="contactName" type="text" placeholder="contact name" onChange={handleChange} value={appDetails.contactName}/>
                     <input name="contactEmail" type="email" placeholder="contact email" onChange={handleChange} value={appDetails.contactEmail}/>
-                    <input name="contactNumber" type="text" placeholder="contact phone #" onChange={handleChange} value={appDetails.contactNumber}/>
+                    <input name="contactNumber" type="text" placeholder="contact phone #" onChange={handleChange} value={appDetails.contactNumber}/> */}
                 </div>
-                <button onClick={handleCancel}>Cancel</button>
-                <button type="submit">Submit</button>
+                <Button onClick={handleCancel}>Cancel</Button>
+                <Button type="submit">Submit</Button>
             </form>
         </div>
     )

@@ -2,6 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+
 function EditJobEntry() {
     const jobDetail = useSelector(store => store.jobDetail);
     const dispatch = useDispatch();
@@ -68,7 +77,53 @@ function EditJobEntry() {
         <form onSubmit={handleSubmit}>
             <div>
                 <label>Add Position Applied</label>
-                <input name="company" type="text" placeholder="company" onChange={handleChange} value={editDetails.company}/>
+
+
+                <TextField fullWidth name="company" label="company" variant="outlined" size="small" placeholder="company" onChange={handleChange} value={editDetails.company}/>
+                <TextField fullWidth name="applicationUrl" label="application url" variant="outlined" size="small" placeholder="application url" onChange={handleChange} value={editDetails.applicationUrl}/>
+                <TextField fullWidth name="position" label="position titile" variant="outlined" size="small" placeholder="position titile" onChange={handleChange} value={editDetails.position}/>
+                
+                <InputLabel>Application Status</InputLabel>
+                <Select
+                    name="appStatus"
+                    value={editDetails.appStatus}
+                    label="Application Status"
+                    onChange={handleChange}
+                >
+                    <MenuItem value="Pending">Pending</MenuItem>
+                    <MenuItem value="Reviewed">Reviewed</MenuItem>
+                    <MenuItem value="Rejected">Rejected</MenuItem>
+                </Select>
+
+                <InputLabel>Interview Stage</InputLabel>
+                <Select
+                    name="interviewStage"
+                    value={editDetails.interviewStage}
+                    label="Interview Stage"
+                    onChange={handleChange}
+                >
+                    <MenuItem value="Pending">Pending</MenuItem>
+                    <MenuItem value="Round 1">Round 1</MenuItem>
+                    <MenuItem value="Round 2">Round 2</MenuItem>
+                    <MenuItem value="Round 3">Round 3</MenuItem>
+                    <MenuItem value="Final Round">Final Round</MenuItem>
+                </Select>
+
+                <FormGroup>
+                    <FormControlLabel name="offer" control={<Switch />} label="Offer Received" onClick={handleToggle} value={editDetails.offer}/>
+                    {offer && 
+                    <FormControlLabel name="offerAccepted" control={<Switch />} label="Offer Accepted?" onClick={handleAccepted} value={editDetails.offerAccepted}/>
+                    }
+                </FormGroup>
+
+                <TextField fullWidth name="contactName" label="contact name" variant="outlined" size="small" onChange={handleChange} value={editDetails.contactName}/>
+                <TextField fullWidth name="contactEmail" label="contact email" variant="outlined" size="small" onChange={handleChange} value={editDetails.contactEmail}/>
+                <TextField fullWidth name="contactNumber" label="contact phone number" variant="outlined" size="small" onChange={handleChange} value={editDetails.contactNumber}/>
+                
+
+
+
+                {/* <input name="company" type="text" placeholder="company" onChange={handleChange} value={editDetails.company}/>
                 <input name="applicationUrl" type="text" placeholder="Application Url" onChange={handleChange} value={editDetails.applicationUrl}/>
                 <input name="position" type="text" placeholder="position" onChange={handleChange} value={editDetails.position}/>
                 <select name="appStatus" onChange={handleChange} value={editDetails.appStatus}>
@@ -97,10 +152,10 @@ function EditJobEntry() {
                     }
                 <input name="contactName" type="text" placeholder="contact name" onChange={handleChange} value={editDetails.contactName}/>
                 <input name="contactEmail" type="text" placeholder="contact email" onChange={handleChange} value={editDetails.contactEmail}/>
-                <input name="contactNumber" type="text" placeholder="contact phone number" onChange={handleChange} value={editDetails.contactNumber}/>
-            </div>
-            <button onClick={handleCancel}>Cancel</button>
-            <button type="submit">Submit</button>
+                <input name="contactNumber" type="text" placeholder="contact phone number" onChange={handleChange} value={editDetails.contactNumber}/> */}
+            </div> 
+            <Button onClick={handleCancel}>Cancel</Button>
+            <Button type="submit">Submit</Button>
         </form>
     </div>
     )

@@ -46,14 +46,19 @@ function Nav({jobHuntInfo}) {
             <Link className="navLink" to={`/dashboard/${currentJobHuntId}`}>
               Dashboard
             </Link>
-
+          </>
+          )}
+            <Link className="navLink" to="/about">
+              About
+            </Link>
+            {user.id && (
+            <>
             <LogOutButton className="navLink" />
           </>
-        )}
+          )}
+        
 
-        <Link className="navLink" to="/about">
-          About
-        </Link>
+
       </div>
     </div>
   );

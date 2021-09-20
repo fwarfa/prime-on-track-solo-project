@@ -7,18 +7,11 @@ body,
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0px;
-}
+} */
 
-img {
-  display: inline-block;
-  max-width: 100%;
-}
 
-.container {
-  padding: 20px;
-}
 
-.btn {
+/* .btn {
   display: inline-block;
   padding: 10px 20px;
   border-color: #014041;
@@ -45,14 +38,10 @@ img {
 .btn_sizeFull {
   display: block;
   width: 100%;
-}
+} */
 
-.btn:hover {
-  background-color: #008183;
-  text-decoration: none;
-}
 
-.btn_asLink {
+/* .btn_asLink {
   padding: 0;
   border-width: 0;
   border-bottom: 1px solid #444;
@@ -60,26 +49,9 @@ img {
   background: none;
   font: inherit;
   color: #444;
-}
+} */
 
-.btn_asLink:hover {
-  background-color: transparent;
-  border-color: #008183;
-  color: #008183;
-}
-
-.alert {
-  box-sizing: border-box;
-  padding: 15px 10px;
-  margin: 15px 0;
-  border: 2px solid #e01616;
-  background-color: #efefef;
-  border-radius: 3px;
-  color: #e01616;
-  font-size: 0.8rem;
-}
-
-.formPanel {
+/* .formPanel {
   box-sizing: border-box;
   width: 400px;
   max-width: 100%;
@@ -88,14 +60,4 @@ img {
   background-color: #efefef;
   border-radius: 3px;
   box-shadow: 0 1px 2px rgb(0, 0, 0, 0.4);
-}
-
-input {
-  margin: 5px;
-  margin-bottom: 10px;
-} */
-
-/* #doughnut {
-  height: 20px;
-  width: 20px
 } */

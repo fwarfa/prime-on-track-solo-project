@@ -187,6 +187,7 @@ function DashboardPage() {
             </TableContainer>
             </TabPanel>
             <TabPanel value="2">
+            <center>
             <div id="doughnut">
             <Typography variant="h5">Progress Tracker</Typography>
                 <Doughnut 
@@ -220,6 +221,7 @@ function DashboardPage() {
                     }}
                 />
             </div>
+            </center>
             </TabPanel>
             </TabContext>
             </Box>

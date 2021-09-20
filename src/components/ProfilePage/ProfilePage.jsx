@@ -2,6 +2,13 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import InputLabel from '@mui/material/InputLabel';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+
 // import { makeStyles } from '@material-ui/core/styles';
 // import Avatar from '@material-ui/core/Avatar';
 // import Badge from '@material-ui/core/Badge';
@@ -66,7 +73,7 @@ function ProfilePage() {
 
   return (
     <div>
-    <h3>Profile Page</h3>
+    <Typography>Profile Page</Typography>
 
     {/* <StyledBadge
       overlap="circular"
@@ -85,18 +92,70 @@ function ProfilePage() {
     <div>{user.email}</div>
     
     <form onSubmit={handleSubmit}>
-      <div>
-        <label >Edit Demographics</label>
-        <input required type="text" placeholder="First Name" />
-        <input required type="text" placeholder="Last Name" />
-        <textarea rows="4" placeholder="Bio"></textarea>
-        <input required type="text" placeholder="Email" />
-        <label>Edit username & password</label>
-        <input required type="text" placeholder="username" />
-        <input required type="text" placeholder="password" />
-      </div>
-      <button onClick={handleCancel}type="button">Cancel</button>
-      <button type="submit">Save</button>
+
+        <InputLabel >Edit Demographics</InputLabel>
+        <TextField 
+          placeholder="First Name" 
+          style={{marginTop: 10}} 
+          fullWidth 
+          name="fistName" 
+          label="First Name" 
+          variant="outlined" 
+          size="small" 
+          />
+
+        <TextField 
+          placeholder="Last Name" 
+          style={{marginTop: 10}} 
+          fullWidth 
+          name="lastName" 
+          label="Last Name" 
+          variant="outlined" 
+          size="small" 
+        />
+        <TextField 
+          placeholder="Bio" 
+          style={{marginTop: 10}} 
+          fullWidth 
+          name="bio" 
+          label="Bio" 
+          variant="outlined" 
+          size="small" 
+        />
+
+      <TextField 
+          placeholder="Email" 
+          style={{marginTop: 10}} 
+          fullWidth 
+          name="email" 
+          label="Email" 
+          variant="outlined" 
+          size="small" 
+        />
+
+        <InputLabel>Edit username & password</InputLabel>
+        <TextField 
+          placeholder="username" 
+          style={{marginTop: 10}} 
+          fullWidth 
+          name="username" 
+          label="username" 
+          variant="outlined" 
+          size="small" 
+          />
+
+         <TextField 
+          placeholder="password" 
+          style={{marginTop: 10}} 
+          fullWidth 
+          name="password" 
+          label="username" 
+          variant="outlined" 
+          size="small" 
+          type="password"
+          />
+      <Button onClick={handleCancel}type="button">Cancel</Button>
+      <Button type="submit">Save</Button>
     </form>
     </div>
   );

@@ -2,37 +2,31 @@ import React, { useEffect } from 'react';
 import {
   HashRouter as Router,
   Redirect,
-  Link,
   Route,
   Switch,
 } from 'react-router-dom';
-
 import { useDispatch, useSelector } from 'react-redux';
 
+// Component Imports
+import './App.css';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-
 import AboutPage from '../AboutPage/AboutPage';
-import MyAppBar from '../AppBar/AppBar';
 import UserPage from '../UserPage/UserPage';
 import ProfilePage from '../ProfilePage/ProfilePage';
-import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import HomePage from '../HomePage/HomePage';
 import NewJobEntryPage from '../NewJobEntryPage/NewJobEntryPage';
 import DashboardPage from '../DashboardPage/DashboardPage';
 import EditJobEntry from '../EditJobEntry/EditJobEntry';
-
-
-import './App.css';
+import MyAppBar from '../AppBar/AppBar';
+import LandingPage from '../LandingPage/LandingPage';
 import LoginForm from '../LoginForm/LoginForm';
 
 function App() {
   const dispatch = useDispatch();
-
   const user = useSelector(store => store.user);
   const jobHuntInfo = useSelector(store => store.jobHunt);
 
@@ -134,7 +128,6 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              
               <HomePage />
               :
               // Otherwise, show the Landing page

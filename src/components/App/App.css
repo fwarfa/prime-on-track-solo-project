@@ -1,17 +1,14 @@
-/* html,
-body,
-#react-root {
+/* 
+html,body, #react-root {
   height: 100%;
 }
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0px;
-} */
+} 
 
-
-
-/* .btn {
+.btn {
   display: inline-block;
   padding: 10px 20px;
   border-color: #014041;
@@ -38,10 +35,9 @@ body {
 .btn_sizeFull {
   display: block;
   width: 100%;
-} */
+} 
 
-
-/* .btn_asLink {
+.btn_asLink {
   padding: 0;
   border-width: 0;
   border-bottom: 1px solid #444;
@@ -49,9 +45,9 @@ body {
   background: none;
   font: inherit;
   color: #444;
-} */
+} 
 
-/* .formPanel {
+.formPanel {
   box-sizing: border-box;
   width: 400px;
   max-width: 100%;

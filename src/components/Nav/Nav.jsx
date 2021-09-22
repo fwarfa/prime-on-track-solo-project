@@ -31,7 +31,7 @@ function Nav({jobHuntInfo}) {
             Login / Register
           </Link>
         }
-
+        
         {/* If a user is logged in, show these links */}
         {user.id && (
           <>
@@ -47,18 +47,15 @@ function Nav({jobHuntInfo}) {
               Dashboard
             </Link>
           </>
-          )}
-            <Link className="navLink" to="/about">
-              About
-            </Link>
-            {user.id && (
-            <>
-            <LogOutButton className="navLink" />
-          </>
-          )}
-        
-
-
+        )}
+        <Link className="navLink" to="/about">
+          About
+        </Link>
+        {user.id && (
+          <>
+          <LogOutButton className="navLink" />
+        </>
+        )}
       </div>
     </div>
   );

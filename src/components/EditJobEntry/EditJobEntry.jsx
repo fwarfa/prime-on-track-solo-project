@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 // Material UI
 import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -55,7 +56,7 @@ function EditJobEntry() {
     
 
     const handleCancel = () => {
-        history.push('/home');
+        history.goBack();
     }
 
     const handleSubmit = (event) => {
@@ -79,7 +80,7 @@ function EditJobEntry() {
                     >
                         <center>
                             <Grid item xs={12} md={6}>
-                                <h1 onClick={test}>Edit Job Entry</h1>
+                                <Typography variant="h3">Edit Job Entry</Typography>
                                 <form onSubmit={handleSubmit}>
                                     <div>
                                         <InputLabel>Add Position Applied</InputLabel>

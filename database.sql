@@ -30,21 +30,3 @@ CREATE TABLE "job_details" (
 	"user_id" INT REFERENCES "user",
 	"job_hunt_id" INT REFERENCES "job_hunt"
 );
-
--- Drop tables for fresh data
-DROP table "job_details";
-
-DROP table "job_hunt";
-
--- Count of total applied, interview, rejected, and offered
-SELECT
-	(SELECT COUNT(id) FROM "job_details") AS "applied",
-	(SELECT COUNT(id) FROM "job_details" WHERE "interview_stage" != 'Pending') AS "interviewed",
-	(SELECT COUNT(id) FROM "job_details" WHERE "application_status" = 'Rejected') AS "rejected",
-	(SELECT COUNT(id) FROM "job_details" WHERE "offer" = true) AS "offered";
-
--- Ending a job hunt when position found
-UPDATE "job_hunt"
-SET 
-  end_date = CURRENT_DATE
-WHERE id = $1;

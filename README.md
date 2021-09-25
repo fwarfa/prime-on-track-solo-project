@@ -9,6 +9,8 @@ Furthermore, job seekers can see the overall totals for their applications, inte
 
 # Preview
 
+![Screen Shot](public/images/on_track.gif)
+
 ## Prequisites and Installation
 
 To get started, make sure to do the following steps:

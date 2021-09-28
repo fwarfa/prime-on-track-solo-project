@@ -135,15 +135,15 @@ function DashboardPage() {
                                                     <TableCell>#</TableCell>
                                                     <TableCell align="right">Edit</TableCell>
                                                     <TableCell align="right">Company</TableCell>
-                                                    <TableCell align="right">Contact Name</TableCell>
-                                                    <TableCell align="right">Contact #</TableCell>
-                                                    <TableCell align="right">Contact Email</TableCell>
-                                                    <TableCell align="right">Application Link</TableCell>
                                                     <TableCell align="right">Position</TableCell>
                                                     <TableCell align="right">Application Status</TableCell>
                                                     <TableCell align="right">Interview Stage</TableCell>
                                                     <TableCell align="right">Offer</TableCell>
                                                     <TableCell align="right">Offer Taken</TableCell>
+                                                    <TableCell align="right">Contact Name</TableCell>
+                                                    <TableCell align="right">Contact #</TableCell>
+                                                    <TableCell align="right">Contact Email</TableCell>
+                                                    <TableCell align="right">Application Link</TableCell>
                                                     <TableCell align="right">Delete</TableCell>
                                             </TableRow>
                                         </TableHead>
@@ -156,15 +156,15 @@ function DashboardPage() {
                                                     <TableCell component="th" scope="row">{index + 1}</TableCell>
                                                     <TableCell align="right"><Button className="btn" variant="contained" size="small" onClick={() => handleEdit(job.id)}>edit</Button></TableCell>
                                                     <TableCell align="right">{job.company_name}</TableCell>
-                                                    <TableCell align="right">{job.contact_name}</TableCell>
-                                                    <TableCell align="right">{job.contact_phone_number}</TableCell>
-                                                    <TableCell align="right">{job.contact_email}</TableCell>
-                                                    <TableCell align="right">{job.application_url}</TableCell>
                                                     <TableCell align="right">{job.position_title}</TableCell>
                                                     <TableCell align="right">{job.application_status}</TableCell>
                                                     <TableCell align="right">{job.interview_stage}</TableCell>
                                                     <TableCell align="right">{job.offer ? <p>yes</p> : <p>no</p>}</TableCell>
                                                     <TableCell align="right">{job.offer_accepted ? <p>yes</p> : <p>no</p>}</TableCell>
+                                                    <TableCell align="right">{job.contact_name}</TableCell>
+                                                    <TableCell align="right">{job.contact_phone_number}</TableCell>
+                                                    <TableCell align="right">{job.contact_email}</TableCell>
+                                                    <TableCell align="right">{job.application_url}</TableCell>
                                                     <TableCell align="right"><Button className="btn" variant="contained" size="small" onClick={() => handleDelete(job.id)}>delete</Button></TableCell>  
                                                 </TableRow>
 

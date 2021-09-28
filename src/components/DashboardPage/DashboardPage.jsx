@@ -133,18 +133,18 @@ function DashboardPage() {
                                         <TableHead>
                                             <TableRow>
                                                     <TableCell>#</TableCell>
-                                                    <TableCell align="right">Edit</TableCell>
-                                                    <TableCell align="right">Company</TableCell>
-                                                    <TableCell align="right">Position</TableCell>
-                                                    <TableCell align="right">Application Status</TableCell>
-                                                    <TableCell align="right">Interview Stage</TableCell>
-                                                    <TableCell align="right">Offer</TableCell>
-                                                    <TableCell align="right">Offer Taken</TableCell>
-                                                    <TableCell align="right">Contact Name</TableCell>
-                                                    <TableCell align="right">Contact #</TableCell>
-                                                    <TableCell align="right">Contact Email</TableCell>
-                                                    <TableCell align="right">Application Link</TableCell>
-                                                    <TableCell align="right">Delete</TableCell>
+                                                    <TableCell align="left">Edit</TableCell>
+                                                    <TableCell align="left">Company</TableCell>
+                                                    <TableCell align="left">Position</TableCell>
+                                                    <TableCell align="left">Application Status</TableCell>
+                                                    <TableCell align="left">Interview Stage</TableCell>
+                                                    <TableCell align="left">Offer</TableCell>
+                                                    <TableCell align="left">Offer Taken</TableCell>
+                                                    <TableCell align="left">Contact Name</TableCell>
+                                                    <TableCell align="left">Contact #</TableCell>
+                                                    <TableCell align="left">Contact Email</TableCell>
+                                                    <TableCell align="left">Application Link</TableCell>
+                                                    <TableCell align="left">Delete</TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
@@ -154,18 +154,18 @@ function DashboardPage() {
                                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                                 >
                                                     <TableCell component="th" scope="row">{index + 1}</TableCell>
-                                                    <TableCell align="right"><Button className="btn" variant="contained" size="small" onClick={() => handleEdit(job.id)}>edit</Button></TableCell>
-                                                    <TableCell align="right">{job.company_name}</TableCell>
-                                                    <TableCell align="right">{job.position_title}</TableCell>
-                                                    <TableCell align="right">{job.application_status}</TableCell>
-                                                    <TableCell align="right">{job.interview_stage}</TableCell>
-                                                    <TableCell align="right">{job.offer ? <p>yes</p> : <p>no</p>}</TableCell>
-                                                    <TableCell align="right">{job.offer_accepted ? <p>yes</p> : <p>no</p>}</TableCell>
-                                                    <TableCell align="right">{job.contact_name}</TableCell>
-                                                    <TableCell align="right">{job.contact_phone_number}</TableCell>
-                                                    <TableCell align="right">{job.contact_email}</TableCell>
-                                                    <TableCell align="right">{job.application_url}</TableCell>
-                                                    <TableCell align="right"><Button className="btn" variant="contained" size="small" onClick={() => handleDelete(job.id)}>delete</Button></TableCell>  
+                                                    <TableCell align="left"><Button className="btn" variant="contained" size="small" onClick={() => handleEdit(job.id)}>edit</Button></TableCell>
+                                                    <TableCell align="left">{job.company_name}</TableCell>
+                                                    <TableCell align="left">{job.position_title}</TableCell>
+                                                    <TableCell align="left">{job.application_status}</TableCell>
+                                                    <TableCell align="left">{job.interview_stage}</TableCell>
+                                                    <TableCell align="left">{job.offer ? <p>yes</p> : <p>no</p>}</TableCell>
+                                                    <TableCell align="left">{job.offer_accepted ? <p>yes</p> : <p>no</p>}</TableCell>
+                                                    <TableCell align="left">{job.contact_name}</TableCell>
+                                                    <TableCell align="left">{job.contact_phone_number}</TableCell>
+                                                    <TableCell align="left">{job.contact_email}</TableCell>
+                                                    <TableCell align="left">{job.application_url}</TableCell>
+                                                    <TableCell align="left"><Button className="btn" variant="contained" size="small" onClick={() => handleDelete(job.id)}>delete</Button></TableCell>  
                                                 </TableRow>
 
                                             ))}
